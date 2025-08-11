@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A.I. Unlimited Publishing House LLC's Book Catalog</title>
+  <style>
+    :root {
+      --bg: #f8f6f2;
+      --panel: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --accent: #4b7bec;
+      --accent-2: #ffd28f;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: var(--panel); border-bottom: 2px solid #ddd; padding: 1rem; text-align: center; font-size: 2rem; font-weight: bold; color: var(--text); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; padding: 2rem; justify-items: center; }
+    .card { background: var(--panel); border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s ease, transform 0.2s ease; width: 240px; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+    .card img { width: 100%; height: auto; display: block; }
+    .card-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-weight: bold; margin: 0 0 0.5rem; font-size: 1.1rem; color: var(--text); }
+    .card-author { font-size: 0.9rem; color: var(--muted); margin-bottom: auto; }
+    .view-btn { margin-top: 0.75rem; background: var(--accent); color: #fff; padding: 0.6rem; border: none; border-radius: 999px; cursor: pointer; text-align: center; text-decoration: none; font-weight: bold; border: 1px solid transparent; }
+    .view-btn:hover { background: var(--accent-2); color: #000; border-color: #ccc; }
+  </style>
+</head>
+<body>
+  <header>A.I. Unlimited Publishing House LLC's Book Catalog</header>
+  <main>
+    <div class="grid" id="catalog"></div>
+  </main>
+  <script>
+    const books = [
+      { title: "Poetry Without Poems", author: "Google Gemini", cover: "images/71OhPSzZ1JL._SL1500_.jpg", link: "poetrywithoutpoems.html" },
+      { title: "Placeholder Book 1", author: "Author Name", cover: "images/placeholder1.jpg", link: "placeholder1.html" },
+      { title: "Placeholder Book 2", author: "Author Name", cover: "images/placeholder2.jpg", link: "placeholder2.html" },
+      { title: "Placeholder Book 3", author: "Author Name", cover: "images/placeholder3.jpg", link: "placeholder3.html" }
+    ];
+
+    const catalog = document.getElementById('catalog');
+    catalog.innerHTML = books.map(book => `
+      <div class="card">
+        <img src="${book.cover}" alt="${book.title} cover">
+        <div class="card-body">
+          <div class="card-title">${book.title}</div>
+          <div class="card-author">${book.author}</div>
+          <a href="${book.link}" class="view-btn">View Details</a>
+        </div>
+      </div>
+    `).join('');
+  </script>
+</body>
+</html>
