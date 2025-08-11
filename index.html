@@ -1,59 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A.I. Unlimited Publishing House LLC's Book Catalog</title>
+  <title>A.I. Unlimited Publishing House LLC — Catalog (Dark)</title>
   <style>
-    :root {
-      --bg: #f8f6f2;
-      --panel: #ffffff;
-      --text: #222222;
-      --muted: #555555;
-      --accent: #4b7bec;
-      --accent-2: #ffd28f;
+    :root{
+      /* Dark palette inspired by your reference */
+      --bg: #1f2227;         /* page + header background */
+      --panel: #292d34;      /* shelf panel */
+      --text: #e7eaee;       /* main text */
+      --muted: #a5acb6;      /* muted text */
+      --accent: #25c2a0;     /* subtle teal accent (optional) */
+
+      --shadow-dark: rgba(0,0,0,.45);
+      --shadow-light: rgba(255,255,255,.06);
+
+      /* Layout */
+      --max-width: 1200px;
+      --max-shelf: 1100px;
+      --panel-radius: 14px;
+
+      /* Books */
+      --book-w: 160px;       /* cover width on desktop */
+      --gap: 22px;           /* space between covers */
+
+      /* Shelf paddings */
+      --pad-v: 72px;         /* top/bottom inside shelf */
+      --pad-h: 36px;         /* left/right inside shelf */
     }
+
     * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: var(--panel); border-bottom: 2px solid #ddd; padding: 1rem; text-align: center; font-size: 2rem; font-weight: bold; color: var(--text); }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; padding: 2rem; justify-items: center; }
-    .card { background: var(--panel); border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s ease, transform 0.2s ease; width: 240px; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
-    .card img { width: 100%; height: auto; display: block; }
-    .card-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; }
-    .card-title { font-weight: bold; margin: 0 0 0.5rem; font-size: 1.1rem; color: var(--text); }
-    .card-author { font-size: 0.9rem; color: var(--muted); margin-bottom: auto; }
-    .view-btn { margin-top: 0.75rem; background: var(--accent); color: #fff; padding: 0.6rem; border: none; border-radius: 999px; cursor: pointer; text-align: center; text-decoration: none; font-weight: bold; border: 1px solid transparent; }
-    .view-btn:hover { background: var(--accent-2); color: #000; border-color: #ccc; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: grid;
+      grid-template-rows: auto 1fr auto; /* header, main, footer */
+    }
+
+    /* Header — same color as page for seamless look */
+    header {
+      background: var(--bg);
+      border-bottom: 1px solid rgba(255,255,255,.04);
+    }
+    .nav {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-left {
+      display: flex;
+      gap: 28px;
+    }
+    .nav-left a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      opacity: .9;
+    }
+    .logo {
+      width: 86px; height: 86px;
+      border-radius: 50%;
+      background: #fff;
+      color: #000;
+      display: grid; place-items: center;
+      font-weight: 900;
+      border: 2px solid #000;
+      box-shadow:
+        0 8px 22px var(--shadow-dark),
+        inset 0 1px 0 var(--shadow-light);
+    }
+    .nav-right {
+      display: flex; justify-content: flex-end; align-items: center; gap: 12px;
+    }
+    .search {
+      position: relative;
+    }
+    .search input {
+      width: 220px;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 10px;
+      color: var(--text);
+      background: #24272d;
+      box-shadow:
+        inset 0 2px 4px rgba(0,0,0,.5),
+        inset 0 -1px 0 rgba(255,255,255,.06);
+    }
+    .search input::placeholder { color: #9097a2; }
+
+    /* Main stage centers the shelf with generous breathing room */
+    main {
+      display: grid;
+      place-items: center;
+      padding: clamp(32px, 8vh, 96px) 16px;
+    }
+
+    /* Shelf panel */
+    .shelf {
+      width: min(var(--max-shelf), 100%);
+      background: var(--panel);
+      padding: var(--pad-v) var(--pad-h);
+      border-radius: var(--panel-radius);
+      box-shadow:
+        0 18px 40px var(--shadow-dark),
+        inset 0 1px 0 var(--shadow-light),
+        inset 0 -1px 0 rgba(0,0,0,.35);
+    }
+
+    /* Fixed 4-column × 2-row grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, var(--book-w));
+      grid-auto-rows: calc(var(--book-w) * 4 / 3); /* 3:4 aspect */
+      gap: var(--gap);
+      justify-content: center;   /* center the grid inside the shelf */
+    }
+
+    /* Covers */
+    .book { width: var(--book-w); }
+    .cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow:
+        0 10px 20px rgba(0,0,0,.45),
+        0 2px 6px rgba(0,0,0,.35);
+      transition: transform .18s ease, box-shadow .18s ease;
+      display: block;
+    }
+    .cover:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 16px 26px rgba(0,0,0,.55),
+        0 4px 10px rgba(0,0,0,.40);
+    }
+
+    /* Responsive: reduce cover width so 4 columns still fit on narrower screens */
+    @media (max-width: 1100px) {
+      :root { --book-w: 148px; }
+    }
+    @media (max-width: 980px) {
+      :root { --book-w: 138px; }
+    }
+    /* Below ~820px, switch to 3 columns (rows will increase accordingly) */
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: repeat(3, var(--book-w)); }
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: repeat(2, var(--book-w)); }
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: .95rem;
+      padding: 24px 16px 48px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.04);
+    }
   </style>
 </head>
 <body>
-  <header>A.I. Unlimited Publishing House LLC's Book Catalog</header>
-  <main>
-    <div class="grid" id="catalog"></div>
-  </main>
-  <script>
-    const books = [
-      { title: "Poetry Without Poems", author: "Google Gemini", cover: "images/71OhPSzZ1JL._SL1500_.jpg", link: "poetrywithoutpoems.html" },
-      { title: "Placeholder Book 1", author: "Author Name", cover: "images/placeholder1.jpg", link: "placeholder1.html" },
-      { title: "Placeholder Book 2", author: "Author Name", cover: "images/placeholder2.jpg", link: "placeholder2.html" },
-      { title: "Placeholder Book 3", author: "Author Name", cover: "images/placeholder3.jpg", link: "placeholder3.html" }
-    ];
 
-    const catalog = document.getElementById('catalog');
-    catalog.innerHTML = books.map(book => `
-      <div class="card">
-        <img src="${book.cover}" alt="${book.title} cover">
-        <div class="card-body">
-          <div class="card-title">${book.title}</div>
-          <div class="card-author">${book.author}</div>
-          <a href="${book.link}" class="view-btn">View Details</a>
+  <!-- Seamless dark header (keeps your layout) -->
+  <header>
+    <div class="nav">
+      <nav class="nav-left">
+        <a href="#">Home</a>
+        <a href="#">About us</a>
+        <a href="#">Contact us</a>
+      </nav>
+
+      <div class="logo">LOGO</div>
+
+      <div class="nav-right">
+        <div class="search">
+          <input type="search" placeholder="Search" aria-label="Search">
         </div>
       </div>
-    `).join('');
+    </div>
+  </header>
+
+  <!-- Book shelf -->
+  <main>
+    <section class="shelf" aria-label="Book catalog">
+      <div class="grid">
+        <!-- Row 1 -->
+        <a class="book" href="poetrywithoutpoems.html" aria-label="Poetry Without Poems">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" />
+        </a>
+        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+
+        <!-- Row 2 -->
+        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> testing
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
