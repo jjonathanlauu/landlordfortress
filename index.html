@@ -3,218 +3,296 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A.I. Unlimited Publishing House LLC — Catalog (Dark)</title>
+  <title>A.I. Unlimited Publishing House LLC — Books</title>
+
+  <!-- Proxima Nova via Adobe Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css">
+
   <style>
     :root{
-      /* Dark palette inspired by your reference */
-      --bg: #1f2227;         /* page + header background */
-      --panel: #292d34;      /* shelf panel */
-      --text: #e7eaee;       /* main text */
-      --muted: #a5acb6;      /* muted text */
-      --accent: #25c2a0;     /* subtle teal accent (optional) */
-
-      --shadow-dark: rgba(0,0,0,.45);
-      --shadow-light: rgba(255,255,255,.06);
-
-      /* Layout */
-      --max-width: 1200px;
-      --max-shelf: 1100px;
-      --panel-radius: 14px;
-
-      /* Books */
-      --book-w: 160px;       /* cover width on desktop */
-      --gap: 22px;           /* space between covers */
-
-      /* Shelf paddings */
-      --pad-v: 72px;         /* top/bottom inside shelf */
-      --pad-h: 36px;         /* left/right inside shelf */
+      --bg: #ffffff;
+      --text: #222428;
+      --muted: #6b727c;
+      --rule: #e9ecef;
+      --accent: #25c2a0; /* teal */
+      --container: 1320px;
+      --gap: 28px;
+      --card-radius: 12px;
     }
 
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; }
+    html, body { margin: 0; padding: 0; }
     body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
+      font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: var(--text);
-      display: grid;
-      grid-template-rows: auto 1fr auto; /* header, main, footer */
+      background: var(--bg);
+      line-height: 1.45;
     }
 
-    /* Header — same color as page for seamless look */
-    header {
-      background: var(--bg);
-      border-bottom: 1px solid rgba(255,255,255,.04);
-    }
-    .nav {
-      max-width: var(--max-width);
+    .container {
+      width: min(100%, var(--container));
       margin: 0 auto;
-      padding: 14px 20px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 16px;
+      padding: 0 20px;
     }
-    .nav-left {
+
+    /* Top nav (thin, uppercase) */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+    .brand {
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .95rem;
+    }
+    .menu {
       display: flex;
       gap: 28px;
     }
-    .nav-left a {
-      color: var(--text);
+    .menu a {
       text-decoration: none;
-      font-weight: 700;
-      opacity: .9;
+      color: #5a6068;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 300;
+      font-size: .8rem;
+      transition: color .2s ease;
     }
-    .logo {
-      width: 86px; height: 86px;
-      border-radius: 50%;
-      background: #fff;
-      color: #000;
-      display: grid; place-items: center;
-      font-weight: 900;
-      border: 2px solid #000;
-      box-shadow:
-        0 8px 22px var(--shadow-dark),
-        inset 0 1px 0 var(--shadow-light);
-    }
-    .nav-right {
-      display: flex; justify-content: flex-end; align-items: center; gap: 12px;
-    }
-    .search {
-      position: relative;
-    }
-    .search input {
-      width: 220px;
-      padding: 10px 12px;
-      border: 0;
-      border-radius: 10px;
-      color: var(--text);
-      background: #24272d;
-      box-shadow:
-        inset 0 2px 4px rgba(0,0,0,.5),
-        inset 0 -1px 0 rgba(255,255,255,.06);
-    }
-    .search input::placeholder { color: #9097a2; }
+    .menu a:hover,
+    .menu a.active { color: var(--accent); }
 
-    /* Main stage centers the shelf with generous breathing room */
-    main {
-      display: grid;
-      place-items: center;
-      padding: clamp(32px, 8vh, 96px) 16px;
+    /* Page title */
+    .page-title {
+      font-size: clamp(2.2rem, 5vw, 5.2rem);
+      letter-spacing: -.02em;
+      font-weight: 800;
+      margin: 48px 0 18px;
+      text-align: center;
     }
 
-    /* Shelf panel */
-    .shelf {
-      width: min(var(--max-shelf), 100%);
-      background: var(--panel);
-      padding: var(--pad-v) var(--pad-h);
-      border-radius: var(--panel-radius);
-      box-shadow:
-        0 18px 40px var(--shadow-dark),
-        inset 0 1px 0 var(--shadow-light),
-        inset 0 -1px 0 rgba(0,0,0,.35);
+    /* Filter bar */
+    .filters {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin: 14px 0 28px;
+      padding: 12px 0;
     }
+    .filter-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      user-select: none;
+    }
+    .filter {
+      cursor: pointer;
+      transition: color .15s ease;
+    }
+    .filter:hover { color: var(--accent); }
+    .filter.active { color: var(--accent); }
 
-    /* Fixed 4-column × 2-row grid */
+    /* Grid of large covers */
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, var(--book-w));
-      grid-auto-rows: calc(var(--book-w) * 4 / 3); /* 3:4 aspect */
       gap: var(--gap);
-      justify-content: center;   /* center the grid inside the shelf */
+      grid-template-columns: repeat(12, 1fr);
     }
+    /* 3-up on desktop, 2-up tablet, 1-up mobile */
+    .grid-item { grid-column: span 4; }
+    @media (max-width: 1000px) { .grid-item { grid-column: span 6; } }
+    @media (max-width: 640px)  { .grid-item { grid-column: span 12; } }
 
-    /* Covers */
-    .book { width: var(--book-w); }
+    .card { display: grid; gap: 12px; }
+
+    /* --- NO-CROP COVER FRAME --- */
+    .cover-wrap {
+      border-radius: var(--card-radius);
+      overflow: hidden;               /* keep rounded corners */
+      background: #f5f6f7;            /* behind letterboxing */
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.08),
+        0 2px 8px rgba(0,0,0,.04);
+      transition: transform .18s ease, box-shadow .18s ease;
+
+      /* fixed visual frame with a book-like aspect */
+      width: 100%;
+      aspect-ratio: 2 / 3;            /* 2:3 frame */
+      display: grid;
+      place-items: center;            /* center the image inside */
+      padding: 8px;                   /* small inset so tall titles aren’t tight */
+    }
+    .cover-wrap:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 16px 30px rgba(0,0,0,.12),
+        0 4px 12px rgba(0,0,0,.06);
+    }
     .cover {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow:
-        0 10px 20px rgba(0,0,0,.45),
-        0 2px 6px rgba(0,0,0,.35);
-      transition: transform .18s ease, box-shadow .18s ease;
+      object-fit: contain;            /* show entire image; no cropping */
+      object-position: center top;    /* bias to top so titles have room */
       display: block;
+      border-radius: 8px;             /* subtle rounding on the actual cover */
+      background: #fff;               /* looks nice if image has transparency */
     }
-    .cover:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 16px 26px rgba(0,0,0,.55),
-        0 4px 10px rgba(0,0,0,.40);
-    }
+    /* --- end no-crop --- */
 
-    /* Responsive: reduce cover width so 4 columns still fit on narrower screens */
-    @media (max-width: 1100px) {
-      :root { --book-w: 148px; }
+    .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 2px 2px 0;
     }
-    @media (max-width: 980px) {
-      :root { --book-w: 138px; }
+    .title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .01em;
     }
-    /* Below ~820px, switch to 3 columns (rows will increase accordingly) */
-    @media (max-width: 820px) {
-      .grid { grid-template-columns: repeat(3, var(--book-w)); }
-    }
-    @media (max-width: 600px) {
-      .grid { grid-template-columns: repeat(2, var(--book-w)); }
+    .author {
+      color: var(--muted);
+      font-size: .9rem;
     }
 
     footer {
+      border-top: 1px solid var(--rule);
       color: var(--muted);
-      font-size: .95rem;
-      padding: 24px 16px 48px;
+      font-size: .9rem;
+      padding: 28px 0 56px;
       text-align: center;
-      border-top: 1px solid rgba(255,255,255,.04);
+      margin-top: 48px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Seamless dark header (keeps your layout) -->
-  <header>
-    <div class="nav">
-      <nav class="nav-left">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-      </nav>
-
-      <div class="logo">LOGO</div>
-
-      <div class="nav-right">
-        <div class="search">
-          <input type="search" placeholder="Search" aria-label="Search">
-        </div>
-      </div>
-    </div>
+  <!-- Thin, uppercase nav -->
+  <header class="container top-nav">
+    <div class="brand">A.I. Unlimited Publishing House</div>
+    <nav class="menu">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#" class="active">Books</a>
+      <a href="#">Contact</a>
+    </nav>
   </header>
 
-  <!-- Book shelf -->
-  <main>
-    <section class="shelf" aria-label="Book catalog">
-      <div class="grid">
-        <!-- Row 1 -->
-        <a class="book" href="poetrywithoutpoems.html" aria-label="Poetry Without Poems">
+  <main class="container">
+    <h1 class="page-title">Books</h1>
+
+    <!-- Filter Bar -->
+    <section class="filters">
+      <div class="filter-list" id="filters">
+        <span class="filter active" data-filter="all">All</span>
+        <span class="filter" data-filter="poetry">Poetry</span>
+        <span class="filter" data-filter="fiction">Fiction</span>
+        <span class="filter" data-filter="nonfiction">Nonfiction</span>
+        <span class="filter" data-filter="essays">Essays</span>
+      </div>
+    </section>
+
+    <!-- Grid of large covers (duplicate and edit as needed) -->
+    <section class="grid" id="bookGrid">
+      <article class="grid-item card" data-cat="poetry">
+        <a class="cover-wrap" href="poetrywithoutpoems.html">
           <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" />
         </a>
-        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
-        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
-        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
+        <div class="meta">
+          <div class="title">Poetry Without Poems</div>
+          <div class="author">Google Gemini (Author)</div>
+        </div>
+      </article>
 
-        <!-- Row 2 -->
-        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
-        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
-        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
-        <a class="book" href="#"><img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" /></a>
-      </div>
+      <article class="grid-item card" data-cat="fiction">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder fiction cover" />
+        </a>
+        <div class="meta">
+          <div class="title">River of Echoes</div>
+          <div class="author">A. N. Author</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="nonfiction">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder nonfiction cover" />
+        </a>
+        <div class="meta">
+          <div class="title">Signals & Silence</div>
+          <div class="author">J. Doe</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="essays">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder essays cover" />
+        </a>
+        <div class="meta">
+          <div class="title">On Looking</div>
+          <div class="author">K. Writer</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="poetry">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder poetry cover" />
+        </a>
+        <div class="meta">
+          <div class="title">Salt & Light</div>
+          <div class="author">M. Poet</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="fiction">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder fiction cover" />
+        </a>
+        <div class="meta">
+          <div class="title">Night Maps</div>
+          <div class="author">R. Teller</div>
+        </div>
+      </article>
     </section>
   </main>
 
   <footer>
-    © <span id="year"></span> testing
+    © <span id="year"></span> A.I. Unlimited Publishing House LLC
   </footer>
 
   <script>
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple filter logic
+    const filters = document.getElementById('filters');
+    const cards = Array.from(document.querySelectorAll('.grid-item'));
+
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter');
+      if (!btn) return;
+
+      // active tab styling
+      filters.querySelectorAll('.filter').forEach(f => f.classList.remove('active'));
+      btn.classList.add('active');
+
+      const value = btn.dataset.filter;
+      if (value === 'all') {
+        cards.forEach(c => c.style.display = '');
+      } else {
+        cards.forEach(c => {
+          c.style.display = c.dataset.cat.includes(value) ? '' : 'none';
+        });
+      }
+    });
   </script>
 </body>
 </html>
+x
