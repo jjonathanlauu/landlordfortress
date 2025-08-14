@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A.I. Unlimited Publishing House LLC — Books</title>
+
+  <!-- Proxima Nova via Adobe Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css">
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --text: #222428;
+      --muted: #6b727c;
+      --rule: #e9ecef;
+      --accent: #25c2a0; /* teal */
+      --container: 1320px;
+      --gap: 28px;
+      --card-radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.45;
+    }
+
+    .container {
+      width: min(100%, var(--container));
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ===== Header (match home) ===== */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255,255,255,.8);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav {
+      display: flex; align-items: center; gap: 28px;
+      padding: 14px 0;
+    }
+    .brand {
+      margin-right: auto;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .95rem;
+      color: var(--text);
+    }
+    .menu { display: flex; gap: 28px; align-items: center; }
+    .menu a {
+      text-decoration: none;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-weight: 300;
+      font-size: .8rem;
+      transition: color .2s ease;
+    }
+    .menu a:hover,
+    .menu a.active { color: var(--accent); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 18px; border-radius: 999px; border: 1px solid transparent;
+      font-weight: 700; text-decoration: none; cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
+    }
+    .btn.primary { background: var(--accent); color: #081214; }
+    .btn.primary:hover { transform: translateY(-1px); box-shadow: 0 10px 18px rgba(37,194,160,.28); }
+
+    /* ===== Page Title ===== */
+    .page-title {
+      font-size: clamp(2.2rem, 5vw, 5.2rem);
+      letter-spacing: -.02em;
+      font-weight: 800;
+      margin: 48px 0 12px;
+      text-align: center;
+    }
+
+    /* ===== Filter bar (centered) ===== */
+    .filters {
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin: 14px 0 28px;
+      padding: 12px 0;
+    }
+    .filter-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      align-items: center;
+      justify-content: center; /* centered under title */
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      user-select: none;
+    }
+    .filter {
+      cursor: pointer;
+      transition: color .15s ease;
+    }
+    .filter:hover { color: var(--accent); }
+    .filter.active { color: var(--accent); }
+
+    /* ===== Grid of large covers ===== */
+    .grid {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(12, 1fr);
+    }
+    /* 3-up desktop, 2-up tablet, 1-up mobile */
+    .grid-item { grid-column: span 4; }
+    @media (max-width: 1000px) { .grid-item { grid-column: span 6; } }
+    @media (max-width: 640px)  { .grid-item { grid-column: span 12; } }
+
+    .card { display: grid; gap: 12px; }
+
+    /* --- Cover frame (no white plate) --- */
+    .cover-wrap {
+      border-radius: var(--card-radius);
+      overflow: hidden;               /* keep rounded corners */
+      /* no background color plate here */
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.08),
+        0 2px 8px rgba(0,0,0,.04);
+      transition: transform .18s ease, box-shadow .18s ease;
+
+      width: 100%;
+      aspect-ratio: 2 / 3;            /* 2:3 frame */
+      display: grid;
+      place-items: center;
+      /* no padding – image goes edge-to-edge inside frame */
+    }
+    .cover-wrap:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 16px 30px rgba(0,0,0,.12),
+        0 4px 12px rgba(0,0,0,.06);
+    }
+    .cover {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;              /* full bleed cover look */
+      object-position: center top;
+      display: block;
+      border-radius: 0;
+      background: transparent;        /* no plate */
+    }
+    /* --- end --- */
+
+    .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 2px 2px 0;
+    }
+    .title {
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .01em;
+    }
+    .author {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      font-size: .9rem;
+      padding: 28px 0 56px;
+      text-align: center;
+      margin-top: 48px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Nav (matches home) -->
+  <header>
+    <div class="container nav">
+      <div class="brand">A.I. Unlimited Publishing House LLC</div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a class="active" href="books.html">Books</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a class="btn primary" href="https://www.amazon.com/dp/B0FLF9LRHS" target="_blank" rel="noopener">Buy on Amazon</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Books</h1>
+
+    <!-- Filter Bar -->
+    <section class="filters">
+      <div class="filter-list" id="filters">
+        <span class="filter active" data-filter="all">All</span>
+        <span class="filter" data-filter="poetry">Poetry</span>
+        <span class="filter" data-filter="fiction">Fiction</span>
+        <span class="filter" data-filter="nonfiction">Nonfiction</span>
+        <span class="filter" data-filter="essays">Essays</span>
+      </div>
+    </section>
+
+    <!-- Grid of large covers -->
+    <section class="grid" id="bookGrid">
+      <article class="grid-item card" data-cat="poetry">
+        <a class="cover-wrap" href="poetrywithoutpoems.html">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" />
+        </a>
+        <div class="meta">
+          <div class="title">Poetry Without Poems</div>
+          <div class="author">Google Gemini (Author)</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="fiction">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder fiction cover" />
+        </a>
+        <div class="meta">
+          <div class="title">River of Echoes</div>
+          <div class="author">A. N. Author</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="nonfiction">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder nonfiction cover" />
+        </a>
+        <div class="meta">
+          <div class="title">Signals & Silence</div>
+          <div class="author">J. Doe</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="essays">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder essays cover" />
+        </a>
+        <div class="meta">
+          <div class="title">On Looking</div>
+          <div class="author">K. Writer</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="poetry">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder poetry cover" />
+        </a>
+        <div class="meta">
+          <div class="title">Salt & Light</div>
+          <div class="author">M. Poet</div>
+        </div>
+      </article>
+
+      <article class="grid-item card" data-cat="fiction">
+        <a class="cover-wrap" href="#">
+          <img class="cover" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Placeholder fiction cover" />
+        </a>
+        <div class="meta">
+          <div class="title">Night Maps</div>
+          <div class="author">R. Teller</div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> A.I. Unlimited Publishing House LLC
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple filter logic
+    const filters = document.getElementById('filters');
+    const cards = Array.from(document.querySelectorAll('.grid-item'));
+
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter');
+      if (!btn) return;
+
+      filters.querySelectorAll('.filter').forEach(f => f.classList.remove('active'));
+      btn.classList.add('active');
+
+      const value = btn.dataset.filter;
+      if (value === 'all') {
+        cards.forEach(c => c.style.display = '');
+      } else {
+        cards.forEach(c => {
+          c.style.display = c.dataset.cat.includes(value) ? '' : 'none';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
