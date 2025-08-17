@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — A.I Unlimited Publishing House LLC</title>
+
+  <!-- Proxima Nova -->
+  <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Shared Nav -->
+  <header>
+    <div class="container nav">
+      <div class="brand">A.I Unlimited Publishing House LLC</div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a class="active" href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a class="btn primary" href="https://www.amazon.com/dp/B0FLF9LRHS" target="_blank" rel="noopener">Buy on Amazon</a>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h1 class="page-title bigger">About</h1>
+
+    <section class="contact-panel" style="margin-top:12px">
+      <p>
+        <strong>A.I Unlimited Publishing House LLC</strong> is an independent press dedicated to bold,
+        thoughtful books that reward attention. We publish across poetry, fiction, and nonfiction, with a focus
+        on clarity, craft, and heart.
+      </p>
+      <p>
+        We partner closely with authors, emphasizing excellent editing, design-forward presentation, and
+        reader-first distribution. If you’re interested in future releases, sign up on our home page — or
+        reach out directly on the <a href="contact.html">Contact</a> page.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> A.I Unlimited Publishing House LLC — All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

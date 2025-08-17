@@ -3,19 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A.I. Unlimited Publishing House LLC — Books</title>
+  <title>A.I Unlimited Publishing House LLC — Books</title>
 
   <!-- Proxima Nova via Adobe Fonts -->
   <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css">
 
   <style>
     :root{
+      /* match site defaults */
       --bg: #ffffff;
       --text: #222428;
       --muted: #6b727c;
       --rule: #e9ecef;
-      --accent: #25c2a0; /* teal */
-      --container: 1320px;
+      --accent: #25c2a0;
+      --container: 1200px;          /* was 1320px */
       --gap: 28px;
       --card-radius: 12px;
     }
@@ -26,25 +27,25 @@
       font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: var(--text);
       background: var(--bg);
-      line-height: 1.45;
+      line-height: 1.5;             /* match site */
     }
 
     .container {
       width: min(100%, var(--container));
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 24px;              /* was 20px */
     }
 
     /* ===== Header (match home) ===== */
     header {
       position: sticky; top: 0; z-index: 1000;
-      background: rgba(255,255,255,.8);
+      background: rgba(255,255,255,.75); /* same translucency */
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--rule);
     }
     .nav {
       display: flex; align-items: center; gap: 28px;
-      padding: 14px 0;
+      padding: 14px 0;               /* same vertical height */
     }
     .brand {
       margin-right: auto;
@@ -54,7 +55,7 @@
       font-size: .95rem;
       color: var(--text);
     }
-    .menu { display: flex; gap: 28px; align-items: center; }
+    .menu { display: flex; gap: 24px; align-items: center; } /* was 28px */
     .menu a {
       text-decoration: none;
       color: #4b5563;
@@ -97,17 +98,14 @@
       flex-wrap: wrap;
       gap: 22px;
       align-items: center;
-      justify-content: center; /* centered under title */
+      justify-content: center;
       font-size: .78rem;
       letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--muted);
       user-select: none;
     }
-    .filter {
-      cursor: pointer;
-      transition: color .15s ease;
-    }
+    .filter { cursor: pointer; transition: color .15s ease; }
     .filter:hover { color: var(--accent); }
     .filter.active { color: var(--accent); }
 
@@ -117,28 +115,24 @@
       gap: var(--gap);
       grid-template-columns: repeat(12, 1fr);
     }
-    /* 3-up desktop, 2-up tablet, 1-up mobile */
     .grid-item { grid-column: span 4; }
     @media (max-width: 1000px) { .grid-item { grid-column: span 6; } }
     @media (max-width: 640px)  { .grid-item { grid-column: span 12; } }
 
     .card { display: grid; gap: 12px; }
 
-    /* --- Cover frame (no white plate) --- */
+    /* Cover frame (no white plate) */
     .cover-wrap {
       border-radius: var(--card-radius);
-      overflow: hidden;               /* keep rounded corners */
-      /* no background color plate here */
+      overflow: hidden;
       box-shadow:
         0 10px 22px rgba(0,0,0,.08),
         0 2px 8px rgba(0,0,0,.04);
       transition: transform .18s ease, box-shadow .18s ease;
-
       width: 100%;
-      aspect-ratio: 2 / 3;            /* 2:3 frame */
+      aspect-ratio: 2 / 3;
       display: grid;
       place-items: center;
-      /* no padding – image goes edge-to-edge inside frame */
     }
     .cover-wrap:hover {
       transform: translateY(-3px);
@@ -149,13 +143,12 @@
     .cover {
       width: 100%;
       height: 100%;
-      object-fit: cover;              /* full bleed cover look */
+      object-fit: cover;
       object-position: center top;
       display: block;
       border-radius: 0;
-      background: transparent;        /* no plate */
+      background: transparent;
     }
-    /* --- end --- */
 
     .meta {
       display: flex;
@@ -163,15 +156,8 @@
       gap: 2px;
       padding: 2px 2px 0;
     }
-    .title {
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: .01em;
-    }
-    .author {
-      color: var(--muted);
-      font-size: .9rem;
-    }
+    .title { font-weight: 700; font-size: 1rem; letter-spacing: .01em; }
+    .author { color: var(--muted); font-size: .9rem; }
 
     footer {
       border-top: 1px solid var(--rule);
@@ -185,10 +171,10 @@
 </head>
 <body>
 
-  <!-- Header / Nav (matches home) -->
+  <!-- Header / Nav (now same size as other pages) -->
   <header>
     <div class="container nav">
-      <div class="brand">A.I. Unlimited Publishing House LLC</div>
+      <div class="brand">A.I Unlimited Publishing House LLC</div>
       <nav class="menu">
         <a href="index.html">Home</a>
         <a class="active" href="books.html">Books</a>
@@ -278,7 +264,7 @@
   </main>
 
   <footer>
-    © <span id="year"></span> A.I. Unlimited Publishing House LLC
+    © <span id="year"></span> A.I Unlimited Publishing House LLC
   </footer>
 
   <script>
