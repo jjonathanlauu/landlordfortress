@@ -4,87 +4,37 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Poetry Without Poems — Summary & Details</title>
-  <meta name="description" content="Summary, themes, and details for Poetry Without Poems." />
-
-  <!-- Proxima Nova (same as the rest of the site) -->
+  <meta name="description" content="Summary, themes & topics, details, and community link for Poetry Without Poems." />
   <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css" />
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Page-local layout helpers (keeps the look in your light theme) -->
   <style>
-    /* Use the same max width container spacing you already have */
     main.page { padding: 28px 0 40px; }
-
-    /* Top breadcrumb line to match your subtle style */
-    .crumbs {
-      color: var(--muted);
-      font-size: .92rem;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin: 8px 0 14px;
-    }
-    .crumbs a { color: #64748b; text-decoration: none; }
-    .crumbs a:hover { color: var(--accent); text-decoration: underline; }
-
-    /* Title block */
-    .book-title-wrap { margin: 0 0 16px; }
-    .book-kicker {
-      font-size: .85rem; letter-spacing: .14em; text-transform: uppercase;
-      color: #0f766e; font-weight: 700; margin-top: 6px;
-    }
-
-    /* 2-column content layout */
-    .book-grid {
-      display: grid;
-      grid-template-columns: 420px 1fr;
-      gap: 22px;
-    }
-    @media (max-width: 980px) {
-      .book-grid { grid-template-columns: 1fr; }
-    }
-
-    /* Left column: cover + facts panel */
-    .book-cover.frame { box-shadow: 0 16px 26px rgba(0,0,0,.10); }
-    .facts {
-      background: var(--panel); border: 1px solid var(--rule);
-      border-radius: var(--radius); padding: 16px; margin-top: 14px;
-      font-size: .98rem;
-    }
-    .facts dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; }
-    .facts dt { color: var(--muted); }
-    .facts dd { margin: 0; }
-
-    /* Right column: content cards */
-    .card-panel {
-      background: var(--panel);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius);
-      padding: 18px;
-    }
-    .stack { display: grid; gap: 14px; }
-    .card-panel h3 { margin: 0 0 8px; }
-    .bullet-list { margin: 0; padding-left: 18px; }
-
-    /* CTA bar */
-    .buy-bar {
-      display: flex; gap: 12px; align-items: center; justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .buy-note { color: var(--muted); font-size: .95rem; }
-
-    /* Ensure nothing here fights the sticky global header */
-    .book-title-bar, .tabs, .breadcrumbs { position: static !important; top: auto !important; }
+    .crumbs{color:var(--muted);font-size:.92rem;display:flex;gap:10px;align-items:center;margin:8px 0 14px;}
+    .crumbs a{color:#64748b;text-decoration:none;}
+    .crumbs a:hover{color:var(--accent);text-decoration:underline;}
+    .book-title-wrap{margin:0 0 16px;}
+    .book-kicker{font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:#0f766e;font-weight:700;margin-top:6px;}
+    .book-grid{display:grid;grid-template-columns:420px 1fr;gap:22px;}
+    @media (max-width:980px){.book-grid{grid-template-columns:1fr;}}
+    .book-cover.frame{box-shadow:0 16px 26px rgba(0,0,0,.10);}
+    .facts{background:var(--panel);border:1px solid var(--rule);border-radius:var(--radius);padding:16px;margin-top:14px;font-size:.98rem;}
+    .facts dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 12px;}
+    .facts dt{color:var(--muted);} .facts dd{margin:0;}
+    .card-panel{background:var(--panel);border:1px solid var(--rule);border-radius:var(--radius);padding:18px;}
+    .stack{display:grid;gap:14px;}
+    .card-panel h3{margin:0 0 8px;}
+    .bullet-list{margin:0;padding-left:18px;}
+    .buy-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+    .buy-note{color:var(--muted);font-size:.95rem;}
+    .cta-community{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between;}
   </style>
 </head>
-
 <body id="book">
-  <!-- Global site header (same markup as index.html) -->
   <header>
     <div class="container nav">
       <div class="brand">A.I. Unlimited Publishing House LLC</div>
       <nav class="menu">
-        <a class="active" href="index.html">Home</a>
+        <a href="index.html">Home</a>
         <a href="community.html">Community</a>
         <a href="books.html">Books</a>
         <a href="about.html">About</a>
@@ -94,27 +44,20 @@
   </header>
 
   <main class="container page">
-    <!-- Breadcrumbs -->
     <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="books.html">Books</a>
-      <span>›</span>
-      <span>Poetry Without Poems</span>
+      <a href="books.html">Books</a><span>›</span><span>Poetry Without Poems</span>
     </nav>
 
-    <!-- Title -->
     <div class="book-title-wrap">
       <h1 class="page-title bigger">Poetry Without Poems</h1>
       <div class="book-kicker">Romain Rolland’s humanism, reframed for modern readers.</div>
     </div>
 
-    <!-- Content grid -->
     <section class="book-grid">
-      <!-- LEFT: cover + facts -->
       <div>
         <div class="book-cover frame">
           <img src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" />
         </div>
-
         <aside class="facts" aria-label="Book details">
           <dl>
             <dt>Author</dt><dd>Google Gemini</dd>
@@ -126,7 +69,6 @@
         </aside>
       </div>
 
-      <!-- RIGHT: content panels -->
       <div class="stack">
         <article class="card-panel">
           <h3>Summary</h3>
@@ -137,24 +79,23 @@
             pointers for deeper study. It’s ideal for seminars, reading groups, and lifelong learners.</p>
         </article>
 
-        <!-- was: You'll learn  → now: Themes & Topics -->
         <article class="card-panel">
           <h3>Themes & Topics</h3>
           <ul class="bullet-list">
-            <li>Humanistic heroism in art, politics, and daily life</li>
-            <li>Nonviolence, conscience, and the Rolland–Gandhi connection</li>
-            <li>Culture beyond nationalism in <em>Jean-Christophe</em></li>
-            <li>Reading “secular saints” (Beethoven, Michelangelo) without dogma</li>
+            <li>Conscience “above the battle” — moral independence in times of war</li>
+            <li>Secular heroism — saints in art: Beethoven, Michelangelo, and creative courage</li>
+            <li><em>Jean-Christophe</em> — culture as a bridge beyond nationalism</li>
+            <li>Rolland & Gandhi — the dialogue that sharpened nonviolent ethics</li>
+            <li>The “eternal echo” — how ideas travel across languages and generations</li>
           </ul>
         </article>
 
-        <!-- was: Excerpt  → now: Join the Discussion (CTA into community) -->
-        <article class="card-panel">
-          <h3>Join the Discussion</h3>
-          <p class="buy-note">
-            Share your thoughts, questions, and insights about <em>Poetry Without Poems</em> with our community of readers.
-          </p>
-          <a class="btn primary" href="community.html#poetrywithoutpoems">Discuss this Book</a>
+        <article class="card-panel cta-community">
+          <div>
+            <h3 style="margin:0 0 6px;">Join the discussion</h3>
+            <div class="buy-note">Share questions, favorite passages, and insights with the community.</div>
+          </div>
+          <a class="btn primary" href="community.html?thread=poetry-without-poems">Discuss this book</a>
         </article>
 
         <article class="card-panel buy-bar">
@@ -168,12 +109,24 @@
     </section>
   </main>
 
-  <footer>
-    © <span id="year"></span> A.I. Unlimited Publishing House LLC — All rights reserved.
-  </footer>
+  <footer>© <span id="year"></span> A.I. Unlimited Publishing House LLC — All rights reserved.</footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Hide-on-scroll header
+    (function(){
+      let last = window.pageYOffset || 0;
+      const header = document.querySelector('header');
+      const threshold = 6;
+      window.addEventListener('scroll', () => {
+        const y = window.pageYOffset || 0;
+        if (Math.abs(y - last) < threshold) return;
+        if (y > last && y > 80) header.classList.add('hide');
+        else header.classList.remove('hide');
+        last = y;
+      });
+    })();
   </script>
 </body>
 </html>

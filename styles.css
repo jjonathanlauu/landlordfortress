@@ -175,4 +175,11 @@
     text-align: center;
     font-size: .95rem;
   }
-  
+/* --- Hide-on-scroll header --- */
+header{
+  transition: transform .28s ease-in-out;
+  will-change: transform;
+}
+header.hide{
+  transform: translateY(-110%);
+}

@@ -5,14 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>A.I. Unlimited Publishing House LLC — Independent Publishing for Modern Voices</title>
   <meta name="description" content="A.I. Unlimited Publishing House LLC releases bold, thoughtful books for modern readers." />
-
-  <!-- Proxima Nova via Adobe Fonts -->
   <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body id="index">
 
-  <!-- NAV -->
+  <!-- NAV (consistent on all pages) -->
   <header>
     <div class="container nav">
       <div class="brand">A.I. Unlimited Publishing House LLC</div>
@@ -40,9 +38,6 @@
           <a class="btn ghost" href="poetrywithoutpoems.html">Read the summary</a>
         </div>
         <div class="trust">
-          <span>Prime-eligible on Amazon</span><span class="dot"></span>
-          <span>Secure checkout</span><span class="dot"></span>
-          <span>Paperback · English</span>
         </div>
       </div>
 
@@ -104,9 +99,9 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // inline confirmation for newsletter
+    // Newsletter confirmation
     const nlForm = document.getElementById('nl-form');
-    const nlMsg = document.getElementById('nl-msg');
+    const nlMsg  = document.getElementById('nl-msg');
     nlForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = nlForm.querySelector('input[type="email"]').value.trim();
@@ -115,6 +110,20 @@
       nlMsg.classList.add('success');
       nlForm.reset();
     });
+
+    // Hide-on-scroll header (same code goes on every page)
+    (function(){
+      let last = window.pageYOffset || 0;
+      const header = document.querySelector('header');
+      const threshold = 6; // ignore tiny scroll jitter
+      window.addEventListener('scroll', () => {
+        const y = window.pageYOffset || 0;
+        if (Math.abs(y - last) < threshold) return;
+        if (y > last && y > 80) header.classList.add('hide');   // down
+        else header.classList.remove('hide');                   // up
+        last = y;
+      });
+    })();
   </script>
 </body>
 </html>

@@ -42,7 +42,13 @@
       background: rgba(255,255,255,.75); /* same translucency */
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--rule);
+
+      /* hide-on-scroll animation */
+      transition: transform .28s ease-in-out;
+      will-change: transform;
     }
+    header.hide { transform: translateY(-110%); }
+
     .nav {
       display: flex; align-items: center; gap: 28px;
       padding: 14px 0;               /* same vertical height */
@@ -171,7 +177,7 @@
 </head>
 <body>
 
-  <!-- Header / Nav (now same size as other pages) -->
+  <!-- Header / Nav (same size as other pages) -->
   <header>
     <div class="container nav">
       <div class="brand">A.I. Unlimited Publishing House LLC</div>
@@ -274,23 +280,28 @@
     // Simple filter logic
     const filters = document.getElementById('filters');
     const cards = Array.from(document.querySelectorAll('.grid-item'));
-
     filters.addEventListener('click', (e) => {
       const btn = e.target.closest('.filter');
       if (!btn) return;
-
       filters.querySelectorAll('.filter').forEach(f => f.classList.remove('active'));
       btn.classList.add('active');
-
       const value = btn.dataset.filter;
-      if (value === 'all') {
-        cards.forEach(c => c.style.display = '');
-      } else {
-        cards.forEach(c => {
-          c.style.display = c.dataset.cat.includes(value) ? '' : 'none';
-        });
-      }
+      cards.forEach(c => c.style.display = (value === 'all' || c.dataset.cat.includes(value)) ? '' : 'none');
     });
+
+    // Hide-on-scroll header (non-intrusive; keeps exact sizing)
+    (function(){
+      let last = window.pageYOffset || 0;
+      const header = document.querySelector('header');
+      const threshold = 6; // ignore tiny jitter
+      window.addEventListener('scroll', () => {
+        const y = window.pageYOffset || 0;
+        if (Math.abs(y - last) < threshold) return;
+        if (y > last && y > 80) header.classList.add('hide');  // scrolling down
+        else header.classList.remove('hide');                  // scrolling up
+        last = y;
+      });
+    })();
   </script>
 </body>
 </html>
