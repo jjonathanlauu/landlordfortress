@@ -3,201 +3,173 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Poetry Without Poems — A Philosophical & Metaphorical Analysis of Five Masterworks by Romain Rolland</title>
-  <meta name="description" content="A gripping exploration of Romain Rolland’s quest for a humanistic heroism, his encounter with Gandhi, and the ideals that challenged a war-torn world. Available on Amazon." />
+  <title>Poetry Without Poems — Summary & Details</title>
+  <meta name="description" content="Summary, themes, and details for Poetry Without Poems." />
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Poetry Without Poems — Romain Rolland, Gandhi, and the Courage to Love the World" />
-  <meta property="og:description" content="Journey through Rolland’s life, ideals, and enduring echo across cultures. Buy the book on Amazon." />
-  <meta property="og:image" content="/images/cover.jpg" />
-  <meta property="og:url" content="https://your-domain.com" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Proxima Nova (same as the rest of the site) -->
+  <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css" />
+  <link rel="stylesheet" href="styles.css" />
 
-  <!-- Favicon (optional) -->
-  <link rel="icon" href="/favicon.ico" />
-
+  <!-- Page-local layout helpers (keeps the look in your light theme) -->
   <style>
-    :root {
-      --bg: #0f0f12;
-      --panel: #15161a;
-      --text: #f6f7fb;
-      --muted: #cbd0d8;
-      --accent: #9ad0ff;
-      --accent-2: #ffd28f;
+    /* Use the same max width container spacing you already have */
+    main.page { padding: 28px 0 40px; }
+
+    /* Top breadcrumb line to match your subtle style */
+    .crumbs {
+      color: var(--muted);
+      font-size: .92rem;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 8px 0 14px;
     }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; height: 100%; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { width: min(1100px, 92%); margin: 0 auto; }
-    .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); background: linear-gradient(0deg, rgba(15,15,18,0.6), rgba(15,15,18,0.9)); border-bottom: 1px solid #22252b; }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
-    .brand { font-weight: 700; letter-spacing: .4px; font-size: 2rem;}
-    .nav a.cta { background: var(--accent); color: #0a0c10; padding: 10px 16px; border-radius: 999px; font-weight: 600; }
-    .hero { display: grid; grid-template-columns: 1fr; gap: 28px; padding: 42px 0 24px; }
-    .hero .left, .hero .right { background: none; }
-    .cover { width: 100%; max-width: 420px; border-radius: 14px; box-shadow: 0 12px 40px rgba(0,0,0,.45); border: 1px solid #23262d; }
-    .kicker { color: var(--accent-2); font-weight: 700; letter-spacing: .1em; font-size: .8rem; text-transform: uppercase; }
-    h1 { font-size: clamp(1.75rem, 3vw + 1rem, 3rem); line-height: 1.15; margin: 8px 0 12px; }
-    .lead { color: var(--muted); font-size: 1.05rem; }
-    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: 999px; font-weight: 700; border: 1px solid #2a2e36; }
-    .btn.primary { background: var(--accent); color: #0a0c10; }
-    .btn.secondary { background: #1a1c22; color: var(--text); }
-    .note { font-size: .9rem; color: var(--muted); margin-top: 6px; }
+    .crumbs a { color: #64748b; text-decoration: none; }
+    .crumbs a:hover { color: var(--accent); text-decoration: underline; }
 
-    .section { padding: 56px 0; border-top: 1px solid #1e2229; background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%); }
-    .two-col { display: grid; grid-template-columns: 1fr; gap: 28px; }
-    .panel { background: var(--panel); border: 1px solid #242830; border-radius: 16px; padding: 20px; }
-    h2 { font-size: clamp(1.25rem, 1.5vw + 1rem, 2rem); margin: 0 0 10px; }
-    ul { margin: 0; padding: 0 0 0 18px; }
-
-    .grid { display: grid; gap: 16px; grid-template-columns: repeat(1, minmax(0,1fr)); }
-    .quote { font-style: italic; color: var(--muted); border-left: 3px solid #2a2e36; padding-left: 12px; }
-
-    .footer { border-top: 1px solid #1f232a; color: var(--muted); padding: 28px 0 56px; font-size: .95rem; }
-
-    @media (min-width: 880px) {
-      .hero { grid-template-columns: 420px 1fr; align-items: center; }
-      .two-col { grid-template-columns: 1.2fr .8fr; }
-      .grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    /* Title block */
+    .book-title-wrap { margin: 0 0 16px; }
+    .book-kicker {
+      font-size: .85rem; letter-spacing: .14em; text-transform: uppercase;
+      color: #0f766e; font-weight: 700; margin-top: 6px;
     }
+
+    /* 2-column content layout */
+    .book-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 22px;
+    }
+    @media (max-width: 980px) {
+      .book-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Left column: cover + facts panel */
+    .book-cover.frame { box-shadow: 0 16px 26px rgba(0,0,0,.10); }
+    .facts {
+      background: var(--panel); border: 1px solid var(--rule);
+      border-radius: var(--radius); padding: 16px; margin-top: 14px;
+      font-size: .98rem;
+    }
+    .facts dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; }
+    .facts dt { color: var(--muted); }
+    .facts dd { margin: 0; }
+
+    /* Right column: content cards */
+    .card-panel {
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .stack { display: grid; gap: 14px; }
+    .card-panel h3 { margin: 0 0 8px; }
+    .bullet-list { margin: 0; padding-left: 18px; }
+
+    /* CTA bar */
+    .buy-bar {
+      display: flex; gap: 12px; align-items: center; justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .buy-note { color: var(--muted); font-size: .95rem; }
+
+    /* Ensure nothing here fights the sticky global header */
+    .book-title-bar, .tabs, .breadcrumbs { position: static !important; top: auto !important; }
   </style>
-
-  <!-- Structured data: Book -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Book",
-    "name": "Poetry Without Poems: A Philosophical and Metaphorical Analysis of Five Masterworks by Romain Rolland",
-    "author": [{"@type": "Person", "name": "Google Gemini"}],
-    "editor": [{"@type": "Person", "name": "Edward C Ip"}, {"@type": "Person", "name": "Jayden Lau"}],
-    "datePublished": "2025-08-04",
-    "bookFormat": "https://schema.org/Paperback",
-    "inLanguage": "en",
-    "image": "https://your-domain.com/images/cover.jpg",
-    "url": "https://your-domain.com",
-    "offers": {
-      "@type": "Offer",
-      "url": "https://www.amazon.com/dp/B0FLF9LRHS",
-      "availability": "https://schema.org/InStock"
-    }
-  }
-  </script>
 </head>
-<body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <div class="brand">Poetry Without Poems</div>
-      <nav>
+
+<body id="book">
+  <!-- Global site header (same markup as index.html) -->
+  <header>
+    <div class="container nav">
+      <div class="brand">A.I. Unlimited Publishing House LLC</div>
+      <nav class="menu">
+        <a class="active" href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="books.html">Books</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="container hero" id="top">
-      <div class="left">
-        <img class="cover" src="/images/71OhPSzZ1JL._SL1500_.jpg" alt="Book cover: Poetry Without Poems" />
-      </div>
-      <div class="right">
-        <div class="kicker">New — Paperback · Aug 4, 2025</div>
-        <h1>Romain Rolland, Gandhi, and the Courage to Love the World</h1>
-        <p class="lead">A sweeping, accessible study of Rolland’s humanistic heroism: from his secular saints in art and philosophy, to his defiant stance “above the battle,” to the living echo of his ideals across continents.</p>
-        <div class="cta-row">
-          <a id="buy" class="btn primary" href="https://www.amazon.com/dp/B0FLF9LRHS" target="_blank" rel="noopener">Buy on Amazon</a>
-          <a class="btn secondary" href="#summary">Read the summary</a>
-        </div>
-        <div class="note">Prime-eligible on Amazon. International availability may vary.</div>
-      </div>
-    </section>
+  <main class="container page">
+    <!-- Breadcrumbs -->
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="books.html">Books</a>
+      <span>›</span>
+      <span>Poetry Without Poems</span>
+    </nav>
 
-    <!-- SUMMARY / WHY READ -->
-    <section class="section" id="summary">
-      <div class="container two-col">
-        <article class="panel">
-          <h2>About the Book</h2>
-          <p>In a tranquil Swiss villa, two titans met: Romain Rolland, the moral conscience of a war‑torn Europe, and Mahatma Gandhi, the architect of nonviolent revolution. Their communion sparked a vision for a new humanity. This book traces Rolland’s lifelong quest for a heroism strong enough to mend a broken world—his secular faith in art, his independence of spirit during the Great War, his epic <em>Jean‑Christophe</em>, and his ideals tested against the rise of fascism. Finally, it follows the “eternal echo” of his spirit into a new cultural context, revealing a heroism that transcends borders and time.</p>
-        </article>
-        <aside class="panel">
-          <h2>You’ll Discover</h2>
-          <ul>
-            <li>How Rolland’s meeting with Gandhi reframed moral courage</li>
-            <li>The idea of “saints” in Beethoven and Michelangelo</li>
-            <li>Why Rolland stood “above the battle” in WWI—and what it cost him</li>
-            <li>How <em>Jean‑Christophe</em> envisioned a Europe beyond nationalism</li>
-            <li>The enduring resonance of his ideals across cultures</li>
-          </ul>
+    <!-- Title -->
+    <div class="book-title-wrap">
+      <h1 class="page-title bigger">Poetry Without Poems</h1>
+      <div class="book-kicker">Romain Rolland’s humanism, reframed for modern readers.</div>
+    </div>
+
+    <!-- Content grid -->
+    <section class="book-grid">
+      <!-- LEFT: cover + facts -->
+      <div>
+        <div class="book-cover frame">
+          <img src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" />
+        </div>
+
+        <aside class="facts" aria-label="Book details">
+          <dl>
+            <dt>Author</dt><dd>Google Gemini</dd>
+            <dt>Format</dt><dd>Paperback</dd>
+            <dt>Language</dt><dd>English</dd>
+            <dt>Pages</dt><dd>240</dd>
+            <dt>ISBN</dt><dd>—</dd>
+          </dl>
         </aside>
       </div>
-    </section>
 
-    <!-- FEATURES / INSIDE -->
-    <section class="section">
-      <div class="container">
-        <h2 style="margin-bottom:16px;">Inside the Pages</h2>
-        <div class="grid">
-          <div class="panel"><strong>Chapter 1 — The Search for a Secular Faith</strong><br/>Art, philosophy, and the need for meaning without dogma.</div>
-          <div class="panel"><strong>Chapter 2 — Above the Battle</strong><br/>Conscience in wartime and the price of dissent.</div>
-          <div class="panel"><strong>Chapter 3 — Jean‑Christophe</strong><br/>An epic river‑novel as a map for European unity.</div>
-          <div class="panel"><strong>Chapter 4 — Rolland & Gandhi</strong><br/>A meeting that sharpened a global ethic of nonviolence.</div>
-          <div class="panel"><strong>Chapter 5 — The Eternal Echo</strong><br/>The afterlife of an idea across language and culture.</div>
-          <div class="panel"><strong>Notes & References</strong><br/>For students, researchers, and the curious reader.</div>
-        </div>
-      </div>
-    </section>
+      <!-- RIGHT: content panels -->
+      <div class="stack">
+        <article class="card-panel">
+          <h3>Summary</h3>
+          <p><em>Poetry Without Poems</em> traces Romain Rolland’s search for a courageous humanism—across art,
+            philosophy, and political conscience. It follows his encounter with Gandhi, the convictions that carried him
+            “above the battle,” and the lasting echo of his ideas in a fractured world.</p>
+          <p>The book is designed for close reading and conversation: short, lucid chapters, context for newcomers, and clear
+            pointers for deeper study. It’s ideal for seminars, reading groups, and lifelong learners.</p>
+        </article>
 
-    <!-- EXCERPT -->
-    <section class="section">
-      <div class="container two-col">
-        <div class="panel">
-          <h2>Read an Excerpt</h2>
-          <p class="quote">“The courage not to conquer, but to love the world—even in its darkest hour—demands a discipline no army can drill.”</p>
-          <p><a href="#" aria-disabled="true">Download a 12‑page sample (PDF)</a> · <a href="#" aria-disabled="true">View the Table of Contents</a></p>
-        </div>
-        <div class="panel">
-          <h2>About the Team</h2>
-          <p>Author: Google Gemini<br/>Editors: Edward C Ip, Jayden Lau</p>
-          <p>For media inquiries: <a href="mailto:you@domain.com">you@domain.com</a></p>
-        </div>
-      </div>
-    </section>
+        <!-- was: You'll learn  → now: Themes & Topics -->
+        <article class="card-panel">
+          <h3>Themes & Topics</h3>
+          <ul class="bullet-list">
+            <li>Humanistic heroism in art, politics, and daily life</li>
+            <li>Nonviolence, conscience, and the Rolland–Gandhi connection</li>
+            <li>Culture beyond nationalism in <em>Jean-Christophe</em></li>
+            <li>Reading “secular saints” (Beethoven, Michelangelo) without dogma</li>
+          </ul>
+        </article>
 
-    <!-- REVIEWS / PRAISE (optional placeholders) -->
-    <section class="section">
-      <div class="container">
-        <h2 style="margin-bottom:16px;">Early Praise</h2>
-        <div class="grid">
-          <div class="panel quote">“A lucid, humane introduction to Rolland’s moral universe.”</div>
-          <div class="panel quote">“Brings history to life without losing its philosophical depth.”</div>
-          <div class="panel quote">“Ideal for classrooms and book clubs.”</div>
-        </div>
-      </div>
-    </section>
+        <!-- was: Excerpt  → now: Join the Discussion (CTA into community) -->
+        <article class="card-panel">
+          <h3>Join the Discussion</h3>
+          <p class="buy-note">
+            Share your thoughts, questions, and insights about <em>Poetry Without Poems</em> with our community of readers.
+          </p>
+          <a class="btn primary" href="community.html#poetrywithoutpoems">Discuss this Book</a>
+        </article>
 
-    <!-- BUY / CTA -->
-    <section class="section" id="buy-cta">
-      <div class="container">
-        <div class="panel" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;">
+        <article class="card-panel buy-bar">
           <div>
-            <h2 style="margin:0 0 6px;">Get Your Copy</h2>
-            <div class="note">Paperback · 240 pages · English</div>
+            <h3 style="margin:0 0 4px;">Get your copy</h3>
+            <div class="buy-note">Prime-eligible on Amazon · Paperback · English</div>
           </div>
           <a class="btn primary" href="https://www.amazon.com/dp/B0FLF9LRHS" target="_blank" rel="noopener">Buy on Amazon</a>
-        </div>
+        </article>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container" style="display:flex; flex-wrap:wrap; align-items:center; gap:12px; justify-content:space-between;">
-      <div>© <span id="year"></span> Poetry Without Poems</div>
-      <div>
-        <a href="#top">Back to top</a>
-      </div>
-    </div>
+  <footer>
+    © <span id="year"></span> A.I. Unlimited Publishing House LLC — All rights reserved.
   </footer>
 
   <script>
