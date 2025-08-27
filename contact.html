@@ -4,11 +4,140 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact — A.I. Unlimited Publishing House LLC</title>
+
+  <!-- Site fonts + global styles -->
   <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css" />
   <link rel="stylesheet" href="styles.css" />
-  <style>.page{padding:28px 0 40px;}.lead{color:var(--muted);}</style>
+
+  <style>
+    main.page { padding: 28px 0 40px; }
+
+    /* Hero */
+    .contact-hero {
+      background: var(--bg);
+      padding: 36px 0 10px;
+      text-align: center;
+    }
+    .contact-hero h1 {
+      margin: 0 0 6px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      font-size: clamp(1.8rem, 2.6vw + 1rem, 2.6rem);
+    }
+    .contact-hero .lead {
+      color: var(--muted);
+      margin: 0 auto;
+      max-width: 70ch;
+      font-size: 1.02rem;
+    }
+
+    /* Contact cards */
+    .contact-cards {
+      margin: 20px auto 18px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    @media (max-width: 900px){
+      .contact-cards { grid-template-columns: 1fr; }
+    }
+    .contact-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; /* ensures icons align at same vertical start */
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(0,0,0,.06);
+      transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+    }
+    .contact-card:hover {
+      background: rgba(34,193,161,.10);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(0,0,0,.10);
+    }
+    .contact-icon {
+      width: 42px; height: 42px;
+      border-radius: 999px;
+      display: grid; place-items: center;
+      background: rgba(34,193,161,.14);
+      margin-bottom: 14px;
+      flex-shrink: 0; /* prevent resizing */
+    }
+    .contact-icon svg { width: 20px; height: 20px; fill: #0f766e; }
+
+    .contact-card h4 {
+      margin: 0 0 8px;
+      font-size: .95rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .contact-card .detail { font-weight: 700; }
+    .contact-card a.detail { color: var(--text); text-decoration: none; }
+    .contact-card a.detail:hover { color: #0f766e; text-decoration: underline; }
+
+    /* Form */
+    .contact-panel {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      padding: 18px;
+      margin-top: 6px;
+    }
+    .form-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.05fr 1fr;
+    }
+    @media (max-width: 1000px){
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    .stack { display: grid; gap: 12px; }
+    .field { display: grid; gap: 6px; }
+    .label { font-size: .9rem; color: var(--muted); }
+    .input, .textarea {
+      width: 100%;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      padding: 12px 14px;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: border .12s ease, box-shadow .12s ease;
+    }
+    .input:focus, .textarea:focus {
+      border-color: #b9f0e4;
+      box-shadow: 0 0 0 3px rgba(34,193,161,.15);
+    }
+    .textarea { min-height: 206px; resize: vertical; }
+
+    .actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .btn.primary {
+      background: var(--accent);
+      color: #081214;
+      border: 1px solid transparent;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 18px rgba(34,193,161,.28);
+    }
+    .form-note { color: var(--muted); font-size: .92rem; }
+    .form-msg { font-size: .95rem; }
+    .form-msg.success { color: #0f766e; }
+    .form-msg.error { color: #b91c1c; }
+  </style>
 </head>
 <body>
+  <!-- Global header -->
   <header>
     <div class="container nav">
       <div class="brand">A.I. Unlimited Publishing House LLC</div>
@@ -23,26 +152,55 @@
   </header>
 
   <main class="container page">
-    <h1 class="page-title bigger">Contact</h1>
-    <p class="lead">Questions, rights, or media? Reach us at <a href="mailto:hello@example.com">hello@example.com</a>.</p>
+    <section class="contact-hero">
+      <h1>Get in touch!</h1>
+      <p class="lead">Contact us for rights, media, partnerships, or general questions.</p>
+    </section>
+
+    <!-- Contact tiles -->
+    <section class="contact-cards">
+      <div class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg></div>
+        <h4>Address</h4>
+        <div class="detail">195 Broadway, 9th Floor<br/>New York, NY 10007</div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.9 15.9 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1.1-.23 11 11 0 0 0 3.4.55 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 7a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.18.19 2.33.55 3.4a1 1 0 0 1-.25 1.1L6.6 10.8Z"/></svg></div>
+        <h4>Phone</h4>
+        <div class="detail">+1 (555) 123-4567</div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg></div>
+        <h4>Email</h4>
+        <a class="detail" href="mailto:hello@example.com">hello@example.com</a>
+      </div>
+    </section>
+
+    <!-- Form card -->
+    <section class="contact-panel">
+      <form id="contact-form" class="form-grid" action="https://formspree.io/f/mnnbqkop" method="POST">
+        <div class="stack">
+          <div class="field"><label class="label" for="name">Your name</label><input class="input" id="name" name="name" type="text" required /></div>
+          <div class="field"><label class="label" for="email">Your email</label><input class="input" id="email" name="email" type="email" required /></div>
+          <div class="field"><label class="label" for="subject">Subject</label><input class="input" id="subject" name="subject" type="text" /></div>
+          <div class="field"><label class="label" for="phone">Phone (optional)</label><input class="input" id="phone" name="phone" type="tel" /></div>
+        </div>
+        <div class="field">
+          <label class="label" for="message">Your message</label>
+          <textarea class="textarea" id="message" name="message" required></textarea>
+          <div class="actions"><button class="btn primary" type="submit">Send message</button><span id="form-msg" class="form-msg" aria-live="polite"></span></div>
+          <div class="form-note">We typically reply within 1–2 business days.</div>
+        </div>
+      </form>
+    </section>
   </main>
 
   <footer>© <span id="year"></span> A.I. Unlimited Publishing House LLC</footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    (function(){
-      let last = window.pageYOffset || 0;
-      const header = document.querySelector('header');
-      const threshold = 6;
-      window.addEventListener('scroll', () => {
-        const y = window.pageYOffset || 0;
-        if (Math.abs(y - last) < threshold) return;
-        if (y > last && y > 80) header.classList.add('hide');
-        else header.classList.remove('hide');
-        last = y;
-      });
-    })();
   </script>
 </body>
 </html>
