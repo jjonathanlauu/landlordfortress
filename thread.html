@@ -1,116 +1,425 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Thread — A.I. Unlimited Publishing House LLC</title>
-  <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css">
-  <style>
-    :root{
-      --bg:#f7f9fc;--surface:#fff;--text:#1f2937;--muted:#6b7280;--rule:#e8eef4;--accent:#22c1a1;--radius:14px;--container:900px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font-family:"proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif}
-    .container{width:min(100%,var(--container));margin:0 auto;padding:0 24px}
-    header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.75);backdrop-filter:blur(8px)}
-    .nav{display:flex;align-items:center;gap:28px;padding:14px 0}
-    .brand{margin-right:auto;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.95rem}
-    .menu{display:flex;gap:24px}
-    .menu a{text-decoration:none;color:#4b5563;text-transform:uppercase;letter-spacing:.18em;font-weight:300;font-size:.8rem}
-    .menu a:hover,.menu a.active{color:var(--accent)}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid #d5dde7;background:#fff;font-weight:700;cursor:pointer}
-    .btn.primary{background:var(--accent);color:#081214;border-color:transparent}
-    .btn.ghost{background:transparent}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thread — A.I. Unlimited Publishing House LLC</title>
 
-    .thread-head{padding:22px 0 12px}
-    .title{margin:0 0 6px;font-size:clamp(1.4rem,2vw + 1rem,2.1rem);font-weight:800}
-    .meta{color:var(--muted);font-size:.95rem}
-    .box{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px}
+    <!-- Keep HTML fresh (use real cache headers in prod too) -->
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
 
-    /* Comment tree */
-    .comment{display:grid;grid-template-columns:24px 1fr;gap:10px;margin-top:12px}
-    .bar{border-left:2px solid #e2e8f0;border-radius:2px}
-    .c-body{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:12px}
-    .c-meta{color:var(--muted);font-size:.85rem;margin-bottom:6px}
-    .c-actions{display:flex;gap:10px;margin-top:6px}
-    .link{color:#0f766e;text-decoration:none}
-    .link:hover{text-decoration:underline}
+    <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css" />
+    <style>
+      :root {
+        --bg: #f7f9fc;
+        --surface: #fff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --rule: #e8eef4;
+        --accent: #22c1a1;
+        --radius: 14px;
+        --container: 900px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      .container {
+        width: min(100%, var(--container));
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(8px);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        padding: 14px 0;
+      }
+      .brand {
+        margin-right: auto;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+      }
+      .menu {
+        display: flex;
+        gap: 24px;
+      }
+      .menu a {
+        text-decoration: none;
+        color: #4b5563;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-weight: 300;
+        font-size: 0.8rem;
+      }
+      .menu a:hover,
+      .menu a.active {
+        color: var(--accent);
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid #d5dde7;
+        background: #fff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn.primary {
+        background: var(--accent);
+        color: #081214;
+        border-color: transparent;
+      }
+      .btn.ghost {
+        background: transparent;
+      }
 
-    .editor{display:grid;gap:8px;margin-top:16px}
-    textarea{width:100%;min-height:120px;padding:12px 14px;border:1px solid #d5dde7;border-radius:10px}
-  </style>
-</head>
-<body>
-  <header>
-    <div class="container nav">
-      <div class="brand">A.I. Unlimited Publishing House LLC</div>
-      <nav class="menu">
-        <a href="index.html">Home</a>
-        <a href="forum.html">Community</a>
-        <a href="books.html">Books</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <button class="btn">Sign in</button>
-    </div>
-  </header>
+      .thread-head {
+        padding: 22px 0 12px;
+      }
+      .title {
+        margin: 0 0 6px;
+        font-size: clamp(1.4rem, 2vw + 1rem, 2.1rem);
+        font-weight: 800;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .box {
+        background: var(--surface);
+        border: 1px solid var(--rule);
+        border-radius: 12px;
+        padding: 16px;
+      }
 
-  <section class="container thread-head">
-    <h1 class="title">How does “Poetry Without Poems” treat fair use?</h1>
-    <div class="meta">Posted by <strong>casebriefs</strong> · 32 comments · 6 hours ago · <a class="link" href="#">Law & Ethics</a></div>
-  </section>
+      .comment {
+        display: grid;
+        grid-template-columns: 24px 1fr;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .bar {
+        border-left: 2px solid #e2e8f0;
+        border-radius: 2px;
+      }
+      .c-body {
+        background: #fff;
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 12px;
+      }
+      .c-meta {
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+      }
+      .c-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 6px;
+      }
+      .link {
+        color: #0f766e;
+        text-decoration: none;
+      }
+      .link:hover {
+        text-decoration: underline;
+      }
+      .editor {
+        display: grid;
+        gap: 8px;
+        margin-top: 16px;
+      }
+      textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 12px 14px;
+        border: 1px solid #d5dde7;
+        border-radius: 10px;
+      }
 
-  <main class="container">
-    <!-- original post -->
-    <article class="box">
-      I’m curious how the book’s analysis maps to actual fair use factors. Any passages you cite when advising clients?
-    </article>
-
-    <!-- editor (mock) -->
-    <div class="editor">
-      <textarea placeholder="Add a comment (sign-in required for real forum)"></textarea>
-      <div>
-        <button class="btn primary" onclick="alert('Mock UI — wire to your auth & backend.')">Reply</button>
-        <button class="btn ghost" onclick="window.location='forum.html'">Back to forum</button>
+      .tt {
+        font-size: 0.72rem;
+        padding: 4px 8px;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        color: #64748b;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">A.I. Unlimited Publishing House LLC</div>
+        <nav class="menu">
+          <a href="index.html">Home</a>
+          <a href="community.html" class="active">Community</a>
+          <a href="books.html">Books</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
       </div>
-    </div>
+    </header>
 
-    <!-- comment tree (3 levels deep example) -->
-    <section style="margin-top:10px">
-      <div class="comment">
-        <div class="bar"></div>
-        <div class="c-body">
-          <div class="c-meta"><strong>amicus</strong> · 5h ago</div>
-          Factor 1 is treated well—transformative purpose is explicit. Factor 4 is nuanced; market substitution is unlikely for commentary of this sort.
-          <div class="c-actions"><a class="link" href="#">Reply</a> · <a class="link" href="#">Report</a></div>
-        </div>
-      </div>
-
-      <div class="comment" style="margin-left:24px">
-        <div class="bar"></div>
-        <div class="c-body">
-          <div class="c-meta"><strong>jurisdoc</strong> · 4h ago</div>
-          Agree. Also, quotations feel quantitatively modest—Factor 3 safely in the clear.
-          <div class="c-actions"><a class="link" href="#">Reply</a></div>
-        </div>
-      </div>
-
-      <div class="comment">
-        <div class="bar"></div>
-        <div class="c-body">
-          <div class="c-meta"><strong>bluebooker</strong> · 2h ago</div>
-          Would love cites to cases that echo the book’s approach (e.g., Campbell).
-          <div class="c-actions"><a class="link" href="#">Reply</a></div>
-        </div>
-      </div>
+    <section class="container thread-head">
+      <h1 id="threadTitle" class="title">Loading…</h1>
+      <div id="threadMeta" class="meta"></div>
     </section>
-  </main>
 
-  <footer class="container" style="border-top:1px solid var(--rule);color:var(--muted);text-align:center;padding:24px 0 46px;margin-top:24px">
-    © <span id="year"></span> A.I. Unlimited Publishing House LLC — All rights reserved.
-  </footer>
+    <main class="container">
+      <article id="threadBody" class="box"></article>
 
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-</body>
+      <div class="editor">
+        <textarea
+          id="replyBody"
+          placeholder="Add a comment (sign-in required for real forum)"
+        ></textarea>
+        <div>
+          <button class="btn primary" id="replyBtn">Reply</button>
+          <button class="btn ghost" id="backBtn">Back to chats</button>
+        </div>
+        <p id="replyError" class="meta" style="color: #b91c1c"></p>
+      </div>
+
+      <section id="comments" style="margin-top: 10px"></section>
+    </main>
+
+    <footer
+      class="container"
+      style="
+        border-top: 1px solid var(--rule);
+        color: var(--muted);
+        text-align: center;
+        padding: 24px 0 46px;
+        margin-top: 24px;
+      "
+    >
+      © <span id="year"></span> A.I. Unlimited Publishing House LLC — All
+      rights reserved.
+    </footer>
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const SUPABASE_URL = "https://wmfqzxlzaipqdhohvulp.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnF6eGx6YWlwcWRob2h2dWxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNzg1NDIsImV4cCI6MjA3MTc1NDU0Mn0.l_1y79L33k5Lm5oNKG8aT6emNTF79udKXUTQLqwf7Fo";
+      const supabase = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+      );
+
+      const threadTitle = document.getElementById("threadTitle");
+      const threadMeta = document.getElementById("threadMeta");
+      const threadBody = document.getElementById("threadBody");
+      const commentsEl = document.getElementById("comments");
+      const replyBody = document.getElementById("replyBody");
+      const replyBtn = document.getElementById("replyBtn");
+      const backBtn = document.getElementById("backBtn");
+      const replyError = document.getElementById("replyError");
+
+      const params = new URLSearchParams(location.search);
+      const threadId = params.get("id");
+
+      const esc = (s) =>
+        (s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c]
+        );
+      const timeAgo = (iso) => {
+        const s = Math.floor((Date.now() - new Date(iso)) / 1000);
+        const t = [
+          ["year", 31536000],
+          ["month", 2592000],
+          ["day", 86400],
+          ["hour", 3600],
+          ["minute", 60],
+        ];
+        for (const [l, v] of t) {
+          const n = Math.floor(s / v);
+          if (n >= 1) return `${n} ${l}${n > 1 ? "s" : ""} ago`;
+        }
+        return "just now";
+      };
+
+      // Back to community
+      backBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        location.href = "community.html";
+      });
+
+      // Load thread (with author username)
+      async function loadThread() {
+        if (!threadId) {
+          threadTitle.textContent = "Thread not found";
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from("threads_with_score")
+          .select("*")
+          .eq("id", threadId)
+          .maybeSingle();
+
+        if (error || !data) {
+          threadTitle.textContent = error?.message || "Thread not found";
+          return;
+        }
+
+        let authorName = data.author_id.slice(0, 8);
+        const { data: prof } = await supabase
+          .from("profiles")
+          .select("username")
+          .eq("id", data.author_id)
+          .maybeSingle();
+        if (prof?.username) authorName = prof.username;
+
+        threadTitle.textContent = data.title;
+        const tagBits = (data.tags || [])
+          .map((t) => `<span class="tt">${esc(t)}</span>`)
+          .join("");
+        threadMeta.innerHTML = `Posted by <strong>${esc(authorName)}</strong> · ${data.comment_count} comments · ${timeAgo(data.created_at)}${tagBits ? " · " + tagBits : ""}`;
+        threadBody.textContent = data.body || "";
+      }
+
+      // Load comments (with usernames)
+      async function loadComments() {
+        commentsEl.innerHTML = "";
+
+        const { data: comments, error } = await supabase
+          .from("comments")
+          .select("*")
+          .eq("thread_id", threadId)
+          .order("created_at", { ascending: true });
+
+        if (error) {
+          commentsEl.innerHTML = `<p class="meta" style="color:#b91c1c">${esc(error.message)}</p>`;
+          return;
+        }
+        if (!comments || comments.length === 0) {
+          commentsEl.innerHTML = `<p class="meta">No replies yet. Be the first!</p>`;
+          return;
+        }
+
+        const ids = [
+          ...new Set(comments.map((c) => c.author_id).filter(Boolean)),
+        ];
+        let nameById = new Map();
+        if (ids.length) {
+          const { data: profs } = await supabase
+            .from("profiles")
+            .select("id, username")
+            .in("id", ids);
+          nameById = new Map((profs || []).map((p) => [p.id, p.username]));
+        }
+
+        for (const c of comments) {
+          const displayName =
+            nameById.get(c.author_id) || c.author_id.slice(0, 8);
+          const item = document.createElement("div");
+          item.className = "comment";
+          item.innerHTML = `
+            <div class="bar"></div>
+            <div class="c-body">
+              <div class="c-meta"><strong>${esc(displayName)}</strong> · ${new Date(c.created_at).toLocaleString()}</div>
+              <div style="white-space:pre-wrap">${esc(c.body)}</div>
+            </div>`;
+          commentsEl.appendChild(item);
+        }
+      }
+
+      // Post reply
+      replyBtn.addEventListener("click", postReply);
+      replyBody.addEventListener("keydown", (e) => {
+        if (e.metaKey && e.key === "Enter") postReply();
+      });
+
+      async function postReply() {
+        replyError.textContent = "";
+        const body = replyBody.value.trim();
+        if (!body) {
+          replyError.textContent = "Reply cannot be empty.";
+          return;
+        }
+
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user) {
+          replyError.textContent =
+            "Please sign in from the Community page to reply.";
+          return;
+        }
+
+        // Ensure profile (FK)
+        const { data: existing } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("id", user.id)
+          .maybeSingle();
+        if (!existing) {
+          await supabase
+            .from("profiles")
+            .insert({ id: user.id, username: `user_${user.id.slice(0, 8)}` });
+        }
+
+        const { error } = await supabase
+          .from("comments")
+          .insert({ thread_id: threadId, body, author_id: user.id });
+        if (error) {
+          replyError.textContent = error.message;
+          return;
+        }
+
+        replyBody.value = "";
+        await loadThread(); // update comment count
+        await loadComments(); // show new comment
+      }
+
+      // Init
+      (async function init() {
+        await loadThread();
+        await loadComments();
+        if (location.hash === "#reply") {
+          replyBody.focus();
+          replyBody.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      })();
+    </script>
+  </body>
 </html>

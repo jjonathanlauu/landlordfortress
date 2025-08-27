@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Community — A.I. Unlimited Publishing House LLC</title>
 
+    <!-- Keep HTML fresh (use real cache headers in prod too) -->
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
     <!-- Proxima Nova -->
     <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css" />
 
@@ -153,6 +161,7 @@
         display: flex;
         gap: 10px;
       }
+
       .tagbar {
         display: flex;
         gap: 8px;
@@ -195,25 +204,24 @@
         color: #64748b;
         padding: 10px;
       }
-      .vote .up {
-        display: block;
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 9px solid #cbd5e1;
-        margin-bottom: 4px;
-        cursor: pointer;
-      }
+      .vote .up,
       .vote .down {
         display: block;
         width: 0;
         height: 0;
+        cursor: pointer;
+      }
+      .vote .up {
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 9px solid #cbd5e1;
+        margin-bottom: 4px;
+      }
+      .vote .down {
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         border-top: 9px solid #cbd5e1;
         margin-top: 4px;
-        cursor: pointer;
       }
       .vote .count {
         font-weight: 700;
@@ -259,7 +267,7 @@
         text-decoration: underline;
       }
 
-      /* Modals */
+      /* Modal */
       .modal {
         position: fixed;
         inset: 0;
@@ -268,9 +276,12 @@
         align-items: center;
         justify-content: center;
         padding: 16px;
+        z-index: 9999;
+        pointer-events: none;
       }
       .modal.open {
         display: flex;
+        pointer-events: auto;
       }
       .sheet {
         background: #fff;
@@ -309,7 +320,6 @@
     </style>
   </head>
   <body>
-    <!-- Header -->
     <header>
       <div class="container nav">
         <div class="brand">A.I. Unlimited Publishing House LLC</div>
@@ -321,7 +331,6 @@
           <a href="contact.html">Contact</a>
         </nav>
 
-        <!-- NEW: Auth buttons -->
         <div id="authArea">
           <button class="btn" id="openSignIn">
             <span class="avatar" aria-hidden="true"></span> Sign in
@@ -331,7 +340,6 @@
       </div>
     </header>
 
-    <!-- Page head -->
     <section class="container page-head">
       <h1 class="page-title">Community Forum</h1>
       <p class="page-sub">
@@ -357,7 +365,6 @@
       </div>
     </section>
 
-    <!-- Thread list -->
     <main class="container">
       <div id="threads" class="threads"></div>
     </main>
@@ -440,11 +447,6 @@
     <!-- Supabase client -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script>
-      // show we're on the newest file
-      console.log("community.js v5", new Date().toISOString());
-
-      document.getElementById("year").textContent = new Date().getFullYear();
-
       // ========= CONFIG =========
       const SUPABASE_URL = "https://wmfqzxlzaipqdhohvulp.supabase.co";
       const SUPABASE_ANON_KEY =
@@ -453,6 +455,10 @@
         SUPABASE_URL,
         SUPABASE_ANON_KEY
       );
+
+      // Year
+      const yearEl = document.getElementById("year");
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
 
       // ========= UI ELEMENTS =========
       const threadsEl = document.getElementById("threads");
@@ -469,42 +475,52 @@
       const emailInput = document.getElementById("email");
       const passwordInput = document.getElementById("password");
       const usernameInput = document.getElementById("username");
+
       const openNewPost = document.getElementById("openNewPost");
       const postCancelBtn = document.getElementById("postCancelBtn");
       const createPostBtn = document.getElementById("createPostBtn");
       const postTitle = document.getElementById("postTitle");
       const postBody = document.getElementById("postBody");
       const postTags = document.getElementById("postTags");
+      const postErr = document.getElementById("postError");
 
       const tabs = Array.from(document.querySelectorAll(".tab"));
       const chips = Array.from(document.querySelectorAll(".chip"));
 
+      // ========= STATE =========
       let mode = "signin";
       let currentSort = "hot";
       let currentTag = "All";
       let currentUser = null;
+      let signingOut = false;
+      let posting = false;
+      let authWorking = false;
 
       // ========= HELPERS =========
-      const open = (el) => el.classList.add("open");
-      const close = (el) => el.classList.remove("open");
-      const setHidden = (el, hidden) => el.classList.toggle("hidden", hidden);
+      const open = (el) => el?.classList.add("open");
+      const close = (el) => el?.classList.remove("open");
+      const setHidden = (el, hidden) => el?.classList.toggle("hidden", hidden);
+      const disableBtn = (btn, on) => {
+        if (!btn) return;
+        btn.disabled = !!on;
+        btn.setAttribute("aria-busy", on ? "true" : "false");
+      };
 
       function formatTimeAgo(iso) {
         const seconds = Math.floor((Date.now() - new Date(iso)) / 1000);
-        const intervals = [
+        const pairs = [
           ["year", 31536000],
           ["month", 2592000],
           ["day", 86400],
           ["hour", 3600],
           ["minute", 60],
         ];
-        for (const [label, secs] of intervals) {
+        for (const [label, secs] of pairs) {
           const v = Math.floor(seconds / secs);
           if (v >= 1) return `${v} ${label}${v > 1 ? "s" : ""} ago`;
         }
         return "just now";
       }
-
       function escapeHtml(s) {
         return (s ?? "").replace(
           /[&<>"']/g,
@@ -519,77 +535,117 @@
         );
       }
 
-      function renderThreads(rows) {
+      async function fetchUsernamesMap(authorIds) {
+        const ids = [...new Set(authorIds.filter(Boolean))];
+        if (ids.length === 0) return new Map();
+        const { data: profs } = await supabase
+          .from("profiles")
+          .select("id, username")
+          .in("id", ids);
+        return new Map((profs || []).map((p) => [p.id, p.username]));
+      }
+
+      // ========= DATA RENDER =========
+      function renderThreads(rows, nameById) {
         threadsEl.innerHTML = "";
-        if (!rows || rows.length === 0) {
+        if (!rows || !rows.length) {
           threadsEl.innerHTML =
             '<p class="page-sub">No posts yet. Be the first!</p>';
           return;
         }
         for (const t of rows) {
+          const authorName =
+            nameById?.get(t.author_id) ||
+            t.author_username ||
+            t.author_id.slice(0, 8);
           const tagBadges = (t.tags || [])
-            .map((tag) => `<span class="tt">${tag}</span>`)
+            .map((tag) => `<span class="tt">${escapeHtml(tag)}</span>`)
             .join("");
-          const item = document.createElement("article");
-          item.className = "thread";
-          item.innerHTML = `
+          const el = document.createElement("article");
+          el.className = "thread";
+          el.innerHTML = `
             <div class="vote" aria-label="votes" data-id="${t.id}">
-              <span class="up" data-dir="up"></span>
+              <span class="up" data-dir="up" title="Upvote"></span>
               <span class="count">${t.score ?? 0}</span>
-              <span class="down" data-dir="down"></span>
+              <span class="down" data-dir="down" title="Downvote"></span>
             </div>
             <div class="thread-main">
-              <h3 class="thread-title"><a class="link" href="#">${escapeHtml(t.title)}</a></h3>
-              <div class="thread-meta">Started by <strong>${t.author_id.slice(0, 8)}</strong> · ${t.comment_count} comments · ${formatTimeAgo(t.created_at)}</div>
+              <h3 class="thread-title">
+                <a class="link open-thread" href="#" data-id="${t.id}">${escapeHtml(t.title)}</a>
+              </h3>
+              <div class="thread-meta">Started by <strong>${escapeHtml(authorName)}</strong> · ${t.comment_count} comments · ${formatTimeAgo(t.created_at)}</div>
               <div class="thread-tags">${tagBadges}</div>
             </div>
             <div class="thread-cta">
-              <a class="link" href="#">Open thread →</a>
-              <button class="btn sm primary">Reply</button>
+              <a class="link open-thread" href="#" data-id="${t.id}">Open thread →</a>
+              <button class="btn sm primary reply-btn" data-id="${t.id}" title="Reply to this thread">Reply</button>
             </div>`;
-          item.querySelector(".vote").addEventListener("click", async (e) => {
+
+          // votes
+          el.querySelector(".vote").addEventListener("click", async (e) => {
             const dir = e.target?.dataset?.dir;
             if (!dir) return;
             if (!currentUser) {
+              setAuthMode("signin");
               open(authModal);
               return;
             }
             const value = dir === "up" ? 1 : -1;
-            await upsertVote(t.id, value);
-            await loadThreads();
+            try {
+              await upsertVote(t.id, value);
+              await loadThreads();
+            } catch {}
           });
-          threadsEl.appendChild(item);
+
+          // open thread
+          el.querySelectorAll(".open-thread").forEach((a) => {
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              const id = a.dataset.id || t.id;
+              window.location.href = `thread.html?id=${encodeURIComponent(id)}`;
+            });
+          });
+
+          // reply button
+          el.querySelector(".reply-btn").addEventListener("click", (e) => {
+            e.preventDefault();
+            if (!currentUser) {
+              setAuthMode("signin");
+              open(authModal);
+              return;
+            }
+            window.location.href = `thread.html?id=${encodeURIComponent(t.id)}#reply`;
+          });
+
+          threadsEl.appendChild(el);
         }
       }
 
       // ========= DATA FETCH =========
       async function loadThreads() {
-        console.log("loadThreads() start", { currentTag, currentSort });
-
-        let q = supabase.from("threads_with_score").select("*");
-        if (currentTag !== "All") q = q.contains("tags", [currentTag]);
-        if (currentSort === "hot") {
-          q = q
-            .order("score", { ascending: false })
-            .order("created_at", { ascending: false });
-        } else if (currentSort === "new") {
-          q = q.order("created_at", { ascending: false });
-        } else if (currentSort === "top") {
-          q = q.order("score", { ascending: false });
+        try {
+          let q = supabase.from("threads_with_score").select("*");
+          if (currentTag !== "All") q = q.contains("tags", [currentTag]);
+          if (currentSort === "hot") {
+            q = q
+              .order("score", { ascending: false })
+              .order("created_at", { ascending: false });
+          } else if (currentSort === "new") {
+            q = q.order("created_at", { ascending: false });
+          } else if (currentSort === "top") {
+            q = q.order("score", { ascending: false });
+          }
+          const { data, error } = await q.limit(50);
+          if (error) throw error;
+          const nameById = await fetchUsernamesMap(
+            (data || []).map((r) => r.author_id)
+          );
+          renderThreads(data, nameById);
+        } catch (error) {
+          console.error(error);
+          threadsEl.innerHTML = `<div style="padding:12px;border:1px solid #fecaca;background:#fee2e2;border-radius:10px;color:#991b1b">
+            <strong>Could not load threads.</strong><br><code>${error.message || JSON.stringify(error)}</code></div>`;
         }
-
-        const { data, error } = await q.limit(50);
-        if (error) {
-          console.error("loadThreads error:", error);
-          threadsEl.innerHTML = `
-            <div style="padding:12px;border:1px solid #fecaca;background:#fee2e2;border-radius:10px;color:#991b1b">
-              <strong>Could not load threads.</strong><br>
-              <code>${error.message || JSON.stringify(error)}</code>
-            </div>`;
-          return;
-        }
-        console.log("loadThreads() got", data?.length || 0, "rows");
-        renderThreads(data);
       }
 
       async function upsertVote(threadId, value) {
@@ -599,7 +655,7 @@
             { user_id: currentUser.id, thread_id: threadId, value },
             { onConflict: "user_id,thread_id" }
           );
-        if (error) console.error(error);
+        if (error) throw error;
       }
 
       async function createThread({ title, body, tags }) {
@@ -623,13 +679,12 @@
           .maybeSingle();
         if (existing) return { data: existing };
         const username =
-          usernameInput.value?.trim() || `user_${id.slice(0, 8)}`;
-        const { data, error } = await supabase
+          usernameInput?.value?.trim() || `user_${id.slice(0, 8)}`;
+        const { data } = await supabase
           .from("profiles")
           .insert({ id, username })
           .select("*")
           .single();
-        if (error) console.error(error);
         return { data };
       }
 
@@ -638,58 +693,69 @@
         setHidden(openSignIn, on);
         setHidden(signOutBtn, !on);
       }
-
       function setAuthMode(next) {
         mode = next;
-        authError.textContent = "";
-        authTitle.textContent =
-          next === "signin" ? "Sign in" : "Create account";
-        authPrimaryBtn.textContent = next === "signin" ? "Sign in" : "Sign up";
-        document.getElementById("authSwitchLine").textContent =
-          next === "signin" ? "No account?" : "Already have an account?";
-        authSwitch.textContent = next === "signin" ? "Create one" : "Sign in";
+        if (authError) authError.textContent = "";
+        if (authTitle)
+          authTitle.textContent =
+            next === "signin" ? "Sign in" : "Create account";
+        if (authPrimaryBtn)
+          authPrimaryBtn.textContent =
+            next === "signin" ? "Sign in" : "Sign up";
+        const line = document.getElementById("authSwitchLine");
+        if (line)
+          line.textContent =
+            next === "signin" ? "No account?" : "Already have an account?";
+        if (authSwitch)
+          authSwitch.textContent = next === "signin" ? "Create one" : "Sign in";
         setHidden(usernameField, next !== "signup");
       }
 
-      openSignIn.addEventListener("click", () => {
+      openSignIn?.addEventListener("click", () => {
         setAuthMode("signin");
         open(authModal);
+        setTimeout(() => emailInput?.focus(), 0);
       });
 
-      // ======= ROBUST SIGN-OUT (global scope + debounce + cache-busting reload) =======
-      let signingOut = false;
-      signOutBtn.addEventListener("click", async () => {
+      // Sign out (global)
+      signOutBtn?.addEventListener("click", async () => {
         if (signingOut) return;
         signingOut = true;
-        signOutBtn.disabled = true;
-        console.log("Sign-out clicked");
-
-        // Sign out across all tabs for this origin
-        const { error } = await supabase.auth.signOut({ scope: "global" });
-        if (error) {
-          console.error("Sign out error:", error);
+        disableBtn(signOutBtn, true);
+        try {
+          const { error } = await supabase.auth.signOut({ scope: "global" });
+          if (error) throw error;
+          window.location.reload();
+        } catch (e) {
+          console.error(e);
           alert("Could not sign out.");
-          signOutBtn.disabled = false;
+          disableBtn(signOutBtn, false);
           signingOut = false;
-          return;
         }
-
-        // Force a clean reload (bust cache so newest script is loaded)
-        const url = new URL(location.href);
-        url.searchParams.set("signedout", Date.now());
-        location.href = url.toString();
       });
 
-      authCancelBtn.addEventListener("click", () => close(authModal));
-      authSwitch.addEventListener("click", (e) => {
+      authCancelBtn?.addEventListener("click", () => close(authModal));
+      authSwitch?.addEventListener("click", (e) => {
         e.preventDefault();
         setAuthMode(mode === "signin" ? "signup" : "signin");
       });
 
-      authPrimaryBtn.addEventListener("click", async () => {
+      authPrimaryBtn?.addEventListener("click", handleAuthSubmit);
+      [emailInput, passwordInput, usernameInput].forEach((i) =>
+        i?.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleAuthSubmit();
+          }
+        })
+      );
+
+      async function handleAuthSubmit() {
+        if (authWorking) return;
+        authWorking = true;
+        disableBtn(authPrimaryBtn, true);
         authError.style.color = "#b91c1c";
         authError.textContent = "";
-
         const email = emailInput.value.trim();
         const password = passwordInput.value;
 
@@ -718,24 +784,27 @@
           }
         } catch (e) {
           authError.textContent = e.message || "Authentication failed.";
+        } finally {
+          disableBtn(authPrimaryBtn, false);
+          authWorking = false;
         }
-      });
+      }
 
-      // Keep UI in sync with session (also reset sign-out UI state after re-auth)
-      supabase.auth.onAuthStateChange(async (evt, session) => {
-        console.log("Auth change:", evt, !!session);
-        currentUser = session?.user || null;
-        setAuthedUI(!!currentUser);
-        if (currentUser) await ensureProfile();
-        await loadThreads();
-
-        // Reset sign-out state whenever auth changes
-        signingOut = false;
-        signOutBtn.disabled = false;
+      // Backdrop click close + global ESC
+      [authModal, postModal].forEach((m) =>
+        m?.addEventListener("click", (e) => {
+          if (e.target === m) close(m);
+        })
+      );
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape")
+          document
+            .querySelectorAll(".modal.open")
+            .forEach((m) => m.classList.remove("open"));
       });
 
       // ========= NEW POST =========
-      openNewPost.addEventListener("click", () => {
+      openNewPost?.addEventListener("click", () => {
         if (!currentUser) {
           setAuthMode("signin");
           open(authModal);
@@ -744,28 +813,36 @@
         postTitle.value = "";
         postBody.value = "";
         postTags.value = "";
+        postErr.textContent = "";
         open(postModal);
+        setTimeout(() => postTitle.focus(), 0);
       });
-      postCancelBtn.addEventListener("click", () => close(postModal));
-      createPostBtn.addEventListener("click", async () => {
+      postCancelBtn?.addEventListener("click", () => close(postModal));
+      createPostBtn?.addEventListener("click", async () => {
+        if (posting) return;
         const title = postTitle.value.trim();
         const body = postBody.value.trim() || null;
         const tags = postTags.value
           .split(",")
           .map((s) => s.trim())
           .filter(Boolean);
-        const postErr = document.getElementById("postError");
         postErr.textContent = "";
         if (!title) {
           postErr.textContent = "Title is required.";
           return;
         }
+
         try {
+          posting = true;
+          disableBtn(createPostBtn, true);
           await createThread({ title, body, tags });
           close(postModal);
           await loadThreads();
         } catch (e) {
           postErr.textContent = e.message || "Could not create post.";
+        } finally {
+          posting = false;
+          disableBtn(createPostBtn, false);
         }
       });
 
@@ -778,7 +855,6 @@
           await loadThreads();
         })
       );
-
       chips.forEach((chip) =>
         chip.addEventListener("click", async () => {
           chips.forEach((c) => c.classList.remove("active"));
@@ -788,12 +864,14 @@
         })
       );
 
-      // Close modals with Escape
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          close(authModal);
-          close(postModal);
-        }
+      // ========= AUTH STATE =========
+      supabase.auth.onAuthStateChange(async (evt, session) => {
+        currentUser = session?.user || null;
+        setAuthedUI(!!currentUser);
+        if (currentUser) await ensureProfile();
+        await loadThreads();
+        signingOut = false;
+        disableBtn(signOutBtn, false);
       });
 
       // ========= INIT =========
