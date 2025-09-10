@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A.I. Unlimited Publishing House LLC — Independent Publishing for Modern Voices</title>
+  <meta name="description" content="A.I. Unlimited Publishing House LLC releases bold, thoughtful books for modern readers." />
+  <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="index">
+
+  <!-- NAV (consistent on all pages) -->
+  <header>
+    <div class="container nav">
+      <div class="brand">A.I. Unlimited Publishing House LLC</div>
+      <nav class="menu">
+        <a class="active" href="index.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="books.html">Books</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <div class="kicker">New Release</div>
+        <h1 class="headline">Poetry Without Poems</h1>
+        <p class="lead">
+          A philosophical and metaphorical journey through five masterworks by Romain Rolland—crafted for readers who crave depth, clarity, and heart.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="https://www.amazon.com/dp/B0FLF9LRHS" target="_blank" rel="noopener">Buy on Amazon</a>
+          <a class="btn ghost" href="poetrywithoutpoems.html">Read the summary</a>
+        </div>
+        <div class="trust">
+        </div>
+      </div>
+
+      <div class="cover-frame" aria-hidden="true">
+        <img class="cover no-plate" src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="featured" id="books">
+    <div class="container">
+      <div class="rowhead">
+        <h2>Featured</h2>
+        <a class="btn ghost" href="books.html">View all</a>
+      </div>
+
+      <div class="scroller" aria-label="Featured books">
+        <article class="card">
+          <a class="thumb no-plate" href="poetrywithoutpoems.html" aria-label="Open Poetry Without Poems">
+            <img src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Poetry Without Poems cover">
+          </a>
+          <div class="meta">
+            <div class="title">Poetry Without Poems</div>
+            <div class="author">Google Gemini</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <a class="thumb no-plate" href="#"><img src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Book cover"></a>
+          <div class="meta"><div class="title">River of Echoes</div><div class="author">A. N. Author</div></div>
+        </article>
+
+        <article class="card">
+          <a class="thumb no-plate" href="#"><img src="images/71OhPSzZ1JL._SL1500_.jpg" alt="Book cover"></a>
+          <div class="meta"><div class="title">Night Maps</div><div class="author">R. Teller</div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="cta-panel" id="contact" aria-label="Newsletter signup">
+    <div class="container">
+      <h3>Stay in the loop</h3>
+      <p class="note">Get updates on new releases and events. No spam.</p>
+      <form class="field-row" id="nl-form">
+        <input type="email" placeholder="you@example.com" aria-label="Email" required />
+        <button class="btn primary" type="submit">Subscribe</button>
+      </form>
+      <div id="nl-msg" class="form-msg" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> A.I. Unlimited Publishing House LLC — All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Newsletter confirmation
+    const nlForm = document.getElementById('nl-form');
+    const nlMsg  = document.getElementById('nl-msg');
+    nlForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = nlForm.querySelector('input[type="email"]').value.trim();
+      if (!email) return;
+      nlMsg.textContent = "Thanks for subscribing!";
+      nlMsg.classList.add('success');
+      nlForm.reset();
+    });
+
+    // Hide-on-scroll header (same code goes on every page)
+    (function(){
+      let last = window.pageYOffset || 0;
+      const header = document.querySelector('header');
+      const threshold = 6; // ignore tiny scroll jitter
+      window.addEventListener('scroll', () => {
+        const y = window.pageYOffset || 0;
+        if (Math.abs(y - last) < threshold) return;
+        if (y > last && y > 80) header.classList.add('hide');   // down
+        else header.classList.remove('hide');                   // up
+        last = y;
+      });
+    })();
+  </script>
+</body>
+</html>
