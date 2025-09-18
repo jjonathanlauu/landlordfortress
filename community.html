@@ -2,68 +2,52 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Community — A.I. Unlimited Publishing House LLC</title>
-
-    <!-- Keep HTML fresh (use real cache headers in prod too) -->
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-
-    <!-- Proxima Nova -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Community — Landlord Fortress</title>
     <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css" />
-
     <style>
       :root {
         --bg: #f7f9fc;
         --surface: #fff;
-        --panel: #fff;
+        --rule: #e8eef4;
         --text: #1f2937;
         --muted: #6b7280;
-        --rule: #e8eef4;
         --accent: #22c1a1;
-        --accent-2: #ffd28f;
-        --radius: 14px;
-        --container: 1200px;
+        --radius: 12px;
       }
       * {
         box-sizing: border-box;
       }
-      html,
       body {
         margin: 0;
-        padding: 0;
-      }
-      body {
         background: var(--bg);
         color: var(--text);
         font-family:
-          "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        line-height: 1.5;
+          "proxima-nova",
+          system-ui,
+          -apple-system,
+          Arial;
       }
-      .container {
-        width: min(100%, var(--container));
-        margin: 0 auto;
-        padding: 0 24px;
-      }
+
+      /* ---------- Header / Nav ---------- */
       header {
         position: sticky;
         top: 0;
         z-index: 1000;
-        background: rgba(255, 255, 255, 0.75);
+        background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--rule);
       }
+      header .container {
+        max-width: 1200px;
+      } /* wider header than page body */
       .nav {
         display: flex;
         align-items: center;
-        gap: 28px;
-        padding: 14px 0;
+        gap: 32px;
+        padding: 12px 20px;
       }
       .brand {
-        margin-right: auto;
         font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
@@ -72,7 +56,7 @@
       }
       .menu {
         display: flex;
-        gap: 24px;
+        gap: 28px;
         align-items: center;
       }
       .menu a {
@@ -82,182 +66,71 @@
         letter-spacing: 0.18em;
         font-weight: 300;
         font-size: 0.8rem;
-        transition: color 0.2s;
+        transition: color 0.18s;
       }
       .menu a:hover,
       .menu a.active {
         color: var(--accent);
       }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        border: 1px solid #d5dde7;
-        background: #fff;
-        font-weight: 700;
-        cursor: pointer;
-      }
-      .btn.primary {
-        background: var(--accent);
-        color: #081214;
-        border-color: transparent;
-      }
-      .btn.primary:hover {
-        box-shadow: 0 8px 16px rgba(34, 193, 161, 0.25);
-      }
-      .btn.ghost {
-        background: transparent;
-      }
-      .btn.sm {
-        padding: 8px 12px;
-        font-size: 0.9rem;
-      }
-      .avatar {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: #e5eef6;
-      }
-
-      .page-head {
-        padding: 28px 0 8px;
-      }
-      .page-title {
-        margin: 0 0 6px;
-        font-size: clamp(1.6rem, 2.2vw + 1rem, 2.6rem);
-        font-weight: 800;
-        letter-spacing: -0.01em;
-      }
-      .page-sub {
-        color: var(--muted);
-        margin: 0;
-      }
-
-      .tabs {
-        display: flex;
-        gap: 18px;
-        align-items: center;
-        margin: 18px 0;
-        border-bottom: 1px solid var(--rule);
-      }
-      .tab {
-        padding: 10px 0;
-        font-size: 0.82rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: #64748b;
-        text-decoration: none;
-        border-bottom: 2px solid transparent;
-      }
-      .tab.active,
-      .tab:hover {
-        color: var(--accent);
-        border-bottom-color: var(--accent);
-      }
-      .tools {
+      .auth-actions {
         margin-left: auto;
         display: flex;
         gap: 10px;
       }
 
-      .tagbar {
+      /* ---------- Page layout ---------- */
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        margin: 10px 0 4px;
+        font-weight: 800;
+      }
+      .sub {
+        color: var(--muted);
+        margin: 0 0 16px;
+      }
+      .bar {
         display: flex;
         gap: 8px;
-        flex-wrap: wrap;
-        margin: 10px 0;
+        margin: 10px 0 16px;
       }
-      .chip {
-        border: 1px solid var(--rule);
+      .btn {
+        appearance: none;
+        border: 1px solid #d5dde7;
         background: #fff;
-        padding: 6px 10px;
+        padding: 10px 14px;
         border-radius: 999px;
-        font-size: 0.8rem;
-        color: #475569;
         cursor: pointer;
+        font-weight: 700;
       }
-      .chip.active {
-        background: #ebfbf7;
-        border-color: #b9f0e4;
-        color: #0f766e;
+      .btn.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: #062a26;
       }
-
-      .threads {
-        display: grid;
-        gap: 12px;
-        margin: 18px 0 46px;
-      }
-      .thread {
+      .card {
         background: var(--surface);
         border: 1px solid var(--rule);
-        border-radius: 12px;
+        border-radius: var(--radius);
+        padding: 14px;
+      }
+      .list {
         display: grid;
-        grid-template-columns: 48px 1fr auto;
-        gap: 16px;
-        align-items: center;
-        padding: 14px 14px 14px 0;
+        gap: 10px;
+        margin: 16px 0;
       }
-      .vote {
-        display: grid;
-        place-items: center;
-        color: #64748b;
-        padding: 10px;
+      .item {
+        background: #fff;
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 12px;
       }
-      .vote .up,
-      .vote .down {
-        display: block;
-        width: 0;
-        height: 0;
-        cursor: pointer;
-      }
-      .vote .up {
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 9px solid #cbd5e1;
-        margin-bottom: 4px;
-      }
-      .vote .down {
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 9px solid #cbd5e1;
-        margin-top: 4px;
-      }
-      .vote .count {
-        font-weight: 700;
-        font-size: 0.9rem;
-      }
-
-      .thread-main {
-        display: grid;
-        gap: 4px;
-        padding-right: 6px;
-      }
-      .thread-title {
-        margin: 0;
-        font-weight: 700;
-      }
-      .thread-meta {
+      .meta {
         color: var(--muted);
         font-size: 0.9rem;
-      }
-      .thread-tags {
-        display: flex;
-        gap: 6px;
-        margin-top: 4px;
-      }
-      .tt {
-        font-size: 0.72rem;
-        padding: 4px 8px;
-        border: 1px solid var(--rule);
-        border-radius: 999px;
-        color: #64748b;
-      }
-
-      .thread-cta {
-        display: flex;
-        align-items: center;
-        gap: 10px;
       }
       .link {
         color: #0f766e;
@@ -266,63 +139,102 @@
       .link:hover {
         text-decoration: underline;
       }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d5dde7;
+        border-radius: 10px;
+      }
+      label {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .error {
+        color: #b91c1c;
+        font-size: 0.9rem;
+      }
+      .chip {
+        appearance: none;
+        border: 1px solid var(--rule);
+        background: #fff;
+        padding: 6px 10px;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .chip.active {
+        background: #ebfbf7;
+        border-color: #b9f0e4;
+        color: #0f766e;
+      }
 
-      /* Modal */
+      /* ---------- Auth modal ---------- */
       .modal {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.35);
         display: none;
         align-items: center;
         justify-content: center;
+        background: rgba(0, 0, 0, 0.35);
         padding: 16px;
         z-index: 9999;
-        pointer-events: none;
       }
       .modal.open {
         display: flex;
-        pointer-events: auto;
       }
       .sheet {
         background: #fff;
         border: 1px solid var(--rule);
-        border-radius: 14px;
-        max-width: 480px;
-        width: 100%;
+        border-radius: 20px;
         padding: 18px;
+        max-width: 520px;
+        width: 100%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       }
       .sheet h3 {
-        margin: 0 0 8px;
+        margin: 0 0 6px;
+        font-size: 1.6rem;
+        font-weight: 800;
       }
-      .sheet p {
-        margin: 0 0 12px;
+      .sheet .sub {
+        margin: 0 0 14px;
+      }
+      .sheet .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 8px;
+      }
+      .sheet .fine {
+        margin-top: 10px;
+        font-size: 0.95rem;
         color: var(--muted);
       }
-      .field {
+      .sheet .fine a {
+        color: #0f766e;
+        text-decoration: none;
+      }
+      .sheet .fine a:hover {
+        text-decoration: underline;
+      }
+      .input-row {
         display: grid;
         gap: 6px;
         margin: 8px 0;
       }
-      .field input,
-      .field textarea {
-        padding: 12px 14px;
-        border: 1px solid #d5dde7;
-        border-radius: 10px;
-      }
-      .sheet .row {
-        display: flex;
-        gap: 10px;
-        margin-top: 10px;
-      }
-      .hidden {
-        display: none !important;
-      }
     </style>
   </head>
   <body>
+    <!-- NAV (consistent across pages) -->
     <header>
       <div class="container nav">
         <div class="brand">A.I. Unlimited Publishing House LLC</div>
+
         <nav class="menu">
           <a href="index.html">Home</a>
           <a class="active" href="community.html">Community</a>
@@ -331,123 +243,128 @@
           <a href="contact.html">Contact</a>
         </nav>
 
-        <div id="authArea">
-          <button class="btn" id="openSignIn">
-            <span class="avatar" aria-hidden="true"></span> Sign in
+        <!-- auth actions (top-right) -->
+        <div class="auth-actions">
+          <button class="btn" id="signInBtn">Sign in</button>
+          <button class="btn" id="signOutBtn" style="display: none">
+            Sign out
           </button>
-          <button class="btn hidden" id="signOutBtn">Sign out</button>
         </div>
       </div>
     </header>
 
-    <section class="container page-head">
-      <h1 class="page-title">Community Forum</h1>
-      <p class="page-sub">
-        Discuss books, themes, and legal perspectives. Be respectful and cite
-        sources when appropriate.
+    <div class="container">
+      <h1>Community</h1>
+      <p class="sub">
+        Discuss books, laws, and landlord strategy. Be respectful.
       </p>
 
-      <div class="tabs">
-        <button class="tab active" data-sort="hot">Hot</button>
-        <button class="tab" data-sort="new">New</button>
-        <button class="tab" data-sort="top">Top</button>
-        <div class="tools">
-          <button class="btn ghost" id="openNewPost">New post</button>
-        </div>
+      <!-- Page-only actions -->
+      <div class="bar" style="justify-content: flex-end">
+        <button class="btn primary" id="newPostBtn">New Post</button>
       </div>
-      <div class="tagbar" id="tagbar">
+
+      <div class="bar" id="tagsBar">
         <button class="chip active" data-tag="All">All</button>
-        <button class="chip" data-tag="Poetry">Poetry</button>
-        <button class="chip" data-tag="Fiction">Fiction</button>
-        <button class="chip" data-tag="Nonfiction">Nonfiction</button>
         <button class="chip" data-tag="Law & Ethics">Law & Ethics</button>
-        <button class="chip" data-tag="Events">Events</button>
+        <button class="chip" data-tag="Evictions">Evictions</button>
+        <button class="chip" data-tag="Rent Control">Rent Control</button>
       </div>
-    </section>
 
-    <main class="container">
-      <div id="threads" class="threads"></div>
-    </main>
+      <div id="error" class="error"></div>
 
-    <!-- Sign in / Sign up modal -->
+      <div id="newPost" class="card" style="display: none">
+        <div class="row" style="justify-content: space-between">
+          <strong>Create a new post</strong>
+          <button class="btn" id="closePost">Close</button>
+        </div>
+        <div style="display: grid; gap: 8px; margin-top: 8px">
+          <label
+            >Title
+            <input
+              id="title"
+              maxlength="200"
+              placeholder="Clear, specific title"
+            />
+          </label>
+          <label
+            >Body (optional)
+            <textarea
+              id="body"
+              rows="5"
+              placeholder="Write your post..."
+            ></textarea>
+          </label>
+          <label
+            >Tags (comma separated)
+            <input id="tags" placeholder="Law & Ethics, Evictions" />
+          </label>
+          <div class="row">
+            <button class="btn primary" id="publish">Publish</button>
+            <div id="postError" class="error"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="list" id="threads"></div>
+    </div>
+
+    <!-- AUTH MODAL (Sign in / Create account) -->
     <div class="modal" id="authModal">
-      <div class="sheet">
+      <div
+        class="sheet"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="authTitle"
+      >
         <h3 id="authTitle">Sign in</h3>
-        <p>Accounts are required to post or reply.</p>
-        <div class="field">
-          <label>Email</label
-          ><input id="email" type="email" placeholder="you@example.com" />
+        <p class="sub" id="authSub">Accounts are required to post or reply.</p>
+
+        <div class="input-row">
+          <label
+            >Email
+            <input
+              id="authEmail"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="username"
+            />
+          </label>
         </div>
-        <div class="field">
-          <label>Password</label
-          ><input id="password" type="password" placeholder="••••••••" />
+        <div class="input-row">
+          <label
+            >Password
+            <input
+              id="authPassword"
+              type="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            />
+          </label>
         </div>
-        <div class="field hidden" id="usernameField">
-          <label>Username</label
-          ><input id="username" placeholder="your-handle" />
+        <div class="input-row" id="authUsernameRow" style="display: none">
+          <label
+            >Username
+            <input id="authUsername" placeholder="your-handle" />
+          </label>
         </div>
-        <div class="row">
-          <button class="btn primary" id="authPrimaryBtn">Sign in</button>
-          <button class="btn ghost" id="authCancelBtn">Cancel</button>
+
+        <div class="actions">
+          <button class="btn primary" id="authPrimary">Sign in</button>
+          <button class="btn" id="authCancel">Cancel</button>
+          <span id="authErr" class="error"></span>
         </div>
-        <p class="page-sub" style="margin-top: 10px">
+
+        <p class="fine">
           <span id="authSwitchLine">No account?</span>
-          <a class="link" href="#" id="authSwitch">Create one</a>
+          <a href="#" id="authSwitch">Create one</a>
         </p>
-        <p id="authError" class="page-sub" style="color: #b91c1c"></p>
       </div>
     </div>
 
-    <!-- New Post modal -->
-    <div class="modal" id="postModal">
-      <div class="sheet">
-        <h3>New post</h3>
-        <div class="field">
-          <label>Title</label
-          ><input
-            id="postTitle"
-            maxlength="200"
-            placeholder="What do you want to discuss?"
-          />
-        </div>
-        <div class="field">
-          <label>Body</label
-          ><textarea
-            id="postBody"
-            rows="6"
-            placeholder="Write your post... (optional)"
-          ></textarea>
-        </div>
-        <div class="field">
-          <label>Tags (comma-separated)</label
-          ><input id="postTags" placeholder="Poetry, Law & Ethics" />
-        </div>
-        <div class="row">
-          <button class="btn primary" id="createPostBtn">Publish</button>
-          <button class="btn ghost" id="postCancelBtn">Cancel</button>
-        </div>
-        <p id="postError" class="page-sub" style="color: #b91c1c"></p>
-      </div>
-    </div>
-
-    <footer
-      class="container"
-      style="
-        border-top: 1px solid var(--rule);
-        color: var(--muted);
-        text-align: center;
-        padding: 24px 0 46px;
-        margin-top: 24px;
-      "
-    >
-      © <span id="year"></span> A.I. Unlimited Publishing House LLC — All
-      rights reserved.
-    </footer>
-
-    <!-- Supabase client -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script>
-      // ========= CONFIG =========
+      // === CONFIG ===
       const SUPABASE_URL = "https://wmfqzxlzaipqdhohvulp.supabase.co";
       const SUPABASE_ANON_KEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnF6eGx6YWlwcWRob2h2dWxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNzg1NDIsImV4cCI6MjA3MTc1NDU0Mn0.l_1y79L33k5Lm5oNKG8aT6emNTF79udKXUTQLqwf7Fo";
@@ -456,73 +373,42 @@
         SUPABASE_ANON_KEY
       );
 
-      // Year
-      const yearEl = document.getElementById("year");
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-      // ========= UI ELEMENTS =========
-      const threadsEl = document.getElementById("threads");
-      const authModal = document.getElementById("authModal");
-      const postModal = document.getElementById("postModal");
-      const openSignIn = document.getElementById("openSignIn");
+      // === DOM ===
+      const signInBtn = document.getElementById("signInBtn");
       const signOutBtn = document.getElementById("signOutBtn");
-      const authCancelBtn = document.getElementById("authCancelBtn");
-      const authPrimaryBtn = document.getElementById("authPrimaryBtn");
-      const authSwitch = document.getElementById("authSwitch");
+      const newPostBtn = document.getElementById("newPostBtn");
+      const newPost = document.getElementById("newPost");
+      const closePost = document.getElementById("closePost");
+      const title = document.getElementById("title");
+      const body = document.getElementById("body");
+      const tags = document.getElementById("tags");
+      const publish = document.getElementById("publish");
+      const postError = document.getElementById("postError");
+      const errorBox = document.getElementById("error");
+      const threadsEl = document.getElementById("threads");
+      const chips = Array.from(document.querySelectorAll("#tagsBar .chip"));
+
+      // Auth modal elements
+      const authModal = document.getElementById("authModal");
       const authTitle = document.getElementById("authTitle");
-      const authError = document.getElementById("authError");
-      const usernameField = document.getElementById("usernameField");
-      const emailInput = document.getElementById("email");
-      const passwordInput = document.getElementById("password");
-      const usernameInput = document.getElementById("username");
+      const authPrimary = document.getElementById("authPrimary");
+      const authCancel = document.getElementById("authCancel");
+      const authErr = document.getElementById("authErr");
+      const authSwitch = document.getElementById("authSwitch");
+      const authSwitchLine = document.getElementById("authSwitchLine");
+      const authEmail = document.getElementById("authEmail");
+      const authPassword = document.getElementById("authPassword");
+      const authUsernameRow = document.getElementById("authUsernameRow");
+      const authUsername = document.getElementById("authUsername");
 
-      const openNewPost = document.getElementById("openNewPost");
-      const postCancelBtn = document.getElementById("postCancelBtn");
-      const createPostBtn = document.getElementById("createPostBtn");
-      const postTitle = document.getElementById("postTitle");
-      const postBody = document.getElementById("postBody");
-      const postTags = document.getElementById("postTags");
-      const postErr = document.getElementById("postError");
-
-      const tabs = Array.from(document.querySelectorAll(".tab"));
-      const chips = Array.from(document.querySelectorAll(".chip"));
-
-      // ========= STATE =========
-      let mode = "signin";
-      let currentSort = "hot";
-      let currentTag = "All";
+      // === STATE ===
       let currentUser = null;
-      let signingOut = false;
-      let posting = false;
-      let authWorking = false;
+      let currentTag = "All";
+      let authMode = "signin"; // 'signin' | 'signup'
+      let working = false;
 
-      // ========= HELPERS =========
-      const open = (el) => el?.classList.add("open");
-      const close = (el) => el?.classList.remove("open");
-      const setHidden = (el, hidden) => el?.classList.toggle("hidden", hidden);
-      const disableBtn = (btn, on) => {
-        if (!btn) return;
-        btn.disabled = !!on;
-        btn.setAttribute("aria-busy", on ? "true" : "false");
-      };
-
-      function formatTimeAgo(iso) {
-        const seconds = Math.floor((Date.now() - new Date(iso)) / 1000);
-        const pairs = [
-          ["year", 31536000],
-          ["month", 2592000],
-          ["day", 86400],
-          ["hour", 3600],
-          ["minute", 60],
-        ];
-        for (const [label, secs] of pairs) {
-          const v = Math.floor(seconds / secs);
-          if (v >= 1) return `${v} ${label}${v > 1 ? "s" : ""} ago`;
-        }
-        return "just now";
-      }
-      function escapeHtml(s) {
-        return (s ?? "").replace(
+      const esc = (s) =>
+        (s ?? "").replace(
           /[&<>"']/g,
           (c) =>
             ({
@@ -533,354 +419,255 @@
               "'": "&#39;",
             })[c]
         );
-      }
-
-      async function fetchUsernamesMap(authorIds) {
-        const ids = [...new Set(authorIds.filter(Boolean))];
-        if (ids.length === 0) return new Map();
-        const { data: profs } = await supabase
-          .from("profiles")
-          .select("id, username")
-          .in("id", ids);
-        return new Map((profs || []).map((p) => [p.id, p.username]));
-      }
-
-      // ========= DATA RENDER =========
-      function renderThreads(rows, nameById) {
-        threadsEl.innerHTML = "";
-        if (!rows || !rows.length) {
-          threadsEl.innerHTML =
-            '<p class="page-sub">No posts yet. Be the first!</p>';
-          return;
+      const timeAgo = (iso) => {
+        const s = Math.floor((Date.now() - new Date(iso)) / 1000);
+        for (const [label, n] of [
+          ["year", 31536000],
+          ["month", 2592000],
+          ["day", 86400],
+          ["hour", 3600],
+          ["minute", 60],
+        ]) {
+          const v = Math.floor(s / n);
+          if (v >= 1) return `${v} ${label}${v > 1 ? "s" : ""} ago`;
         }
-        for (const t of rows) {
-          const authorName =
-            nameById?.get(t.author_id) ||
-            t.author_username ||
-            t.author_id.slice(0, 8);
-          const tagBadges = (t.tags || [])
-            .map((tag) => `<span class="tt">${escapeHtml(tag)}</span>`)
-            .join("");
-          const el = document.createElement("article");
-          el.className = "thread";
-          el.innerHTML = `
-            <div class="vote" aria-label="votes" data-id="${t.id}">
-              <span class="up" data-dir="up" title="Upvote"></span>
-              <span class="count">${t.score ?? 0}</span>
-              <span class="down" data-dir="down" title="Downvote"></span>
-            </div>
-            <div class="thread-main">
-              <h3 class="thread-title">
-                <a class="link open-thread" href="#" data-id="${t.id}">${escapeHtml(t.title)}</a>
-              </h3>
-              <div class="thread-meta">Started by <strong>${escapeHtml(authorName)}</strong> · ${t.comment_count} comments · ${formatTimeAgo(t.created_at)}</div>
-              <div class="thread-tags">${tagBadges}</div>
-            </div>
-            <div class="thread-cta">
-              <a class="link open-thread" href="#" data-id="${t.id}">Open thread →</a>
-              <button class="btn sm primary reply-btn" data-id="${t.id}" title="Reply to this thread">Reply</button>
-            </div>`;
+        return "just now";
+      };
+      const toggle = (el, on) => (el.style.display = on ? "" : "none");
+      const showError = (msg) => (errorBox.textContent = msg || "");
 
-          // votes
-          el.querySelector(".vote").addEventListener("click", async (e) => {
-            const dir = e.target?.dataset?.dir;
-            if (!dir) return;
-            if (!currentUser) {
-              setAuthMode("signin");
-              open(authModal);
-              return;
-            }
-            const value = dir === "up" ? 1 : -1;
-            try {
-              await upsertVote(t.id, value);
-              await loadThreads();
-            } catch {}
-          });
-
-          // open thread
-          el.querySelectorAll(".open-thread").forEach((a) => {
-            a.addEventListener("click", (e) => {
-              e.preventDefault();
-              const id = a.dataset.id || t.id;
-              window.location.href = `thread.html?id=${encodeURIComponent(id)}`;
-            });
-          });
-
-          // reply button
-          el.querySelector(".reply-btn").addEventListener("click", (e) => {
-            e.preventDefault();
-            if (!currentUser) {
-              setAuthMode("signin");
-              open(authModal);
-              return;
-            }
-            window.location.href = `thread.html?id=${encodeURIComponent(t.id)}#reply`;
-          });
-
-          threadsEl.appendChild(el);
+      function setAuthUI(signedIn) {
+        toggle(signInBtn, !signedIn);
+        toggle(signOutBtn, signedIn);
+      }
+      function openAuth(mode = "signin") {
+        setAuthMode(mode);
+        authErr.textContent = "";
+        authEmail.value = "";
+        authPassword.value = "";
+        authUsername.value = "";
+        authModal.classList.add("open");
+        setTimeout(() => authEmail.focus(), 0);
+      }
+      function closeAuth() {
+        authModal.classList.remove("open");
+      }
+      function setAuthMode(next) {
+        authMode = next;
+        if (next === "signin") {
+          authTitle.textContent = "Sign in";
+          authPrimary.textContent = "Sign in";
+          authSwitchLine.textContent = "No account?";
+          authSwitch.textContent = "Create one";
+          toggle(authUsernameRow, false);
+        } else {
+          authTitle.textContent = "Create account";
+          authPrimary.textContent = "Create account";
+          authSwitchLine.textContent = "Already have an account?";
+          authSwitch.textContent = "Sign in";
+          toggle(authUsernameRow, true);
         }
-      }
-
-      // ========= DATA FETCH =========
-      async function loadThreads() {
-        try {
-          let q = supabase.from("threads_with_score").select("*");
-          if (currentTag !== "All") q = q.contains("tags", [currentTag]);
-          if (currentSort === "hot") {
-            q = q
-              .order("score", { ascending: false })
-              .order("created_at", { ascending: false });
-          } else if (currentSort === "new") {
-            q = q.order("created_at", { ascending: false });
-          } else if (currentSort === "top") {
-            q = q.order("score", { ascending: false });
-          }
-          const { data, error } = await q.limit(50);
-          if (error) throw error;
-          const nameById = await fetchUsernamesMap(
-            (data || []).map((r) => r.author_id)
-          );
-          renderThreads(data, nameById);
-        } catch (error) {
-          console.error(error);
-          threadsEl.innerHTML = `<div style="padding:12px;border:1px solid #fecaca;background:#fee2e2;border-radius:10px;color:#991b1b">
-            <strong>Could not load threads.</strong><br><code>${error.message || JSON.stringify(error)}</code></div>`;
-        }
-      }
-
-      async function upsertVote(threadId, value) {
-        const { error } = await supabase
-          .from("votes")
-          .upsert(
-            { user_id: currentUser.id, thread_id: threadId, value },
-            { onConflict: "user_id,thread_id" }
-          );
-        if (error) throw error;
-      }
-
-      async function createThread({ title, body, tags }) {
-        const { data: profile } = await ensureProfile();
-        const { error } = await supabase
-          .from("threads")
-          .insert({ title, body, tags, author_id: profile.id });
-        if (error) throw error;
       }
 
       async function ensureProfile() {
         const {
           data: { user },
         } = await supabase.auth.getUser();
-        if (!user) return { data: null };
-        const id = user.id;
-        const { data: existing } = await supabase
+        if (!user) return null;
+        const { data: p } = await supabase
           .from("profiles")
-          .select("*")
-          .eq("id", id)
+          .select("id")
+          .eq("id", user.id)
           .maybeSingle();
-        if (existing) return { data: existing };
-        const username =
-          usernameInput?.value?.trim() || `user_${id.slice(0, 8)}`;
-        const { data } = await supabase
-          .from("profiles")
-          .insert({ id, username })
-          .select("*")
-          .single();
-        return { data };
-      }
-
-      // ========= AUTH =========
-      function setAuthedUI(on) {
-        setHidden(openSignIn, on);
-        setHidden(signOutBtn, !on);
-      }
-      function setAuthMode(next) {
-        mode = next;
-        if (authError) authError.textContent = "";
-        if (authTitle)
-          authTitle.textContent =
-            next === "signin" ? "Sign in" : "Create account";
-        if (authPrimaryBtn)
-          authPrimaryBtn.textContent =
-            next === "signin" ? "Sign in" : "Sign up";
-        const line = document.getElementById("authSwitchLine");
-        if (line)
-          line.textContent =
-            next === "signin" ? "No account?" : "Already have an account?";
-        if (authSwitch)
-          authSwitch.textContent = next === "signin" ? "Create one" : "Sign in";
-        setHidden(usernameField, next !== "signup");
-      }
-
-      openSignIn?.addEventListener("click", () => {
-        setAuthMode("signin");
-        open(authModal);
-        setTimeout(() => emailInput?.focus(), 0);
-      });
-
-      // Sign out (global)
-      signOutBtn?.addEventListener("click", async () => {
-        if (signingOut) return;
-        signingOut = true;
-        disableBtn(signOutBtn, true);
-        try {
-          const { error } = await supabase.auth.signOut({ scope: "global" });
-          if (error) throw error;
-          window.location.reload();
-        } catch (e) {
-          console.error(e);
-          alert("Could not sign out.");
-          disableBtn(signOutBtn, false);
-          signingOut = false;
+        if (!p) {
+          const username =
+            authUsername.value?.trim() || `user_${user.id.slice(0, 8)}`;
+          await supabase.from("profiles").insert({ id: user.id, username });
         }
-      });
+        return user;
+      }
 
-      authCancelBtn?.addEventListener("click", () => close(authModal));
-      authSwitch?.addEventListener("click", (e) => {
-        e.preventDefault();
-        setAuthMode(mode === "signin" ? "signup" : "signin");
-      });
+      async function loadThreads() {
+        showError("");
+        threadsEl.innerHTML = "Loading…";
+        try {
+          let q = supabase
+            .from("threads_with_score")
+            .select("*")
+            .order("created_at", { ascending: false })
+            .limit(50);
+          if (currentTag !== "All") q = q.contains("tags", [currentTag]); // tags must be text[]
+          const { data, error } = await q;
+          if (error) throw error;
 
-      authPrimaryBtn?.addEventListener("click", handleAuthSubmit);
-      [emailInput, passwordInput, usernameInput].forEach((i) =>
-        i?.addEventListener("keydown", (e) => {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            handleAuthSubmit();
+          if (!data || !data.length) {
+            threadsEl.innerHTML =
+              '<p class="sub">No posts yet. Be the first!</p>';
+            return;
           }
+          threadsEl.innerHTML = "";
+          for (const t of data) {
+            const el = document.createElement("div");
+            el.className = "item";
+            const tagsHtml = (t.tags || [])
+              .map(
+                (x) =>
+                  `<span class="meta" style="margin-right:6px">#${esc(x)}</span>`
+              )
+              .join("");
+            el.innerHTML = `
+              <div class="row" style="justify-content:space-between">
+                <strong>${esc(t.title)}</strong>
+                <span class="meta">${t.comment_count} comments · ${timeAgo(t.created_at)}</span>
+              </div>
+              ${t.body ? `<div style="margin-top:6px">${esc(t.body)}</div>` : ""}
+              <div class="row" style="margin-top:8px;justify-content:space-between">
+                <div>${tagsHtml}</div>
+                <a class="link" href="thread.html?id=${encodeURIComponent(t.id)}">Open →</a>
+              </div>`;
+            threadsEl.appendChild(el);
+          }
+        } catch (e) {
+          threadsEl.innerHTML = "";
+          showError(e.message || "Failed to load threads.");
+        }
+      }
+
+      // ----- AUTH EVENTS
+      signInBtn.addEventListener("click", () => openAuth("signin"));
+      signOutBtn.addEventListener("click", async () => {
+        await supabase.auth.signOut({ scope: "global" });
+        setAuthUI(false);
+        await loadThreads();
+      });
+      authCancel.addEventListener("click", closeAuth);
+      authSwitch.addEventListener("click", (e) => {
+        e.preventDefault();
+        setAuthMode(authMode === "signin" ? "signup" : "signin");
+      });
+      [authEmail, authPassword, authUsername].forEach((i) =>
+        i.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") authPrimary.click();
         })
       );
 
-      async function handleAuthSubmit() {
-        if (authWorking) return;
-        authWorking = true;
-        disableBtn(authPrimaryBtn, true);
-        authError.style.color = "#b91c1c";
-        authError.textContent = "";
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-
+      authPrimary.addEventListener("click", async () => {
+        if (working) return;
+        working = true;
+        authErr.textContent = "";
         try {
-          if (mode === "signin") {
+          const email = authEmail.value.trim();
+          const password = authPassword.value;
+          if (!email || !password) {
+            authErr.textContent = "Email and password required.";
+            return;
+          }
+
+          if (authMode === "signin") {
             const { error } = await supabase.auth.signInWithPassword({
               email,
               password,
             });
             if (error) throw error;
-            close(authModal);
+            await ensureProfile();
+            setAuthUI(true);
+            closeAuth();
+            await loadThreads();
           } else {
+            // Sign up (email confirmation may be required by your project settings)
             const { data, error } = await supabase.auth.signUp({
               email,
               password,
             });
             if (error) throw error;
             if (data.session) {
-              close(authModal);
+              await ensureProfile();
+              setAuthUI(true);
+              closeAuth();
+              await loadThreads();
             } else {
-              authError.style.color = "#0f766e";
-              authError.textContent =
-                "Check your email to confirm your account, then sign in.";
+              // No session until the user confirms email
+              authErr.style.color = "#0f766e";
+              authErr.textContent =
+                "Check your email to confirm, then return to sign in.";
             }
-            await ensureProfile();
           }
         } catch (e) {
-          authError.textContent = e.message || "Authentication failed.";
+          authErr.style.color = "#b91c1c";
+          authErr.textContent = e.message || "Authentication failed.";
         } finally {
-          disableBtn(authPrimaryBtn, false);
-          authWorking = false;
+          working = false;
         }
-      }
-
-      // Backdrop click close + global ESC
-      [authModal, postModal].forEach((m) =>
-        m?.addEventListener("click", (e) => {
-          if (e.target === m) close(m);
-        })
-      );
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape")
-          document
-            .querySelectorAll(".modal.open")
-            .forEach((m) => m.classList.remove("open"));
       });
 
-      // ========= NEW POST =========
-      openNewPost?.addEventListener("click", () => {
-        if (!currentUser) {
-          setAuthMode("signin");
-          open(authModal);
+      // ----- NEW POST
+      newPostBtn.addEventListener("click", async () => {
+        postError.textContent = "";
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user) {
+          openAuth("signin");
           return;
         }
-        postTitle.value = "";
-        postBody.value = "";
-        postTags.value = "";
-        postErr.textContent = "";
-        open(postModal);
-        setTimeout(() => postTitle.focus(), 0);
+        await ensureProfile();
+        toggle(newPost, true);
       });
-      postCancelBtn?.addEventListener("click", () => close(postModal));
-      createPostBtn?.addEventListener("click", async () => {
-        if (posting) return;
-        const title = postTitle.value.trim();
-        const body = postBody.value.trim() || null;
-        const tags = postTags.value
+      closePost.addEventListener("click", () => toggle(newPost, false));
+
+      publish.addEventListener("click", async () => {
+        postError.textContent = "";
+        const t = title.value.trim();
+        const b = body.value.trim() || null;
+        const tagList = tags.value
           .split(",")
           .map((s) => s.trim())
           .filter(Boolean);
-        postErr.textContent = "";
-        if (!title) {
-          postErr.textContent = "Title is required.";
+        if (!t) {
+          postError.textContent = "Title is required.";
           return;
         }
-
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user) {
+          postError.textContent = "Please sign in.";
+          return;
+        }
         try {
-          posting = true;
-          disableBtn(createPostBtn, true);
-          await createThread({ title, body, tags });
-          close(postModal);
+          await ensureProfile();
+          const { error } = await supabase
+            .from("threads")
+            .insert({ title: t, body: b, tags: tagList, author_id: user.id });
+          if (error) throw error;
+          title.value = "";
+          body.value = "";
+          tags.value = "";
+          toggle(newPost, false);
           await loadThreads();
         } catch (e) {
-          postErr.textContent = e.message || "Could not create post.";
-        } finally {
-          posting = false;
-          disableBtn(createPostBtn, false);
+          postError.textContent = e.message || "Could not publish.";
         }
       });
 
-      // ========= FILTERS =========
-      tabs.forEach((tab) =>
-        tab.addEventListener("click", async () => {
-          tabs.forEach((t) => t.classList.remove("active"));
-          tab.classList.add("active");
-          currentSort = tab.dataset.sort;
-          await loadThreads();
-        })
-      );
-      chips.forEach((chip) =>
-        chip.addEventListener("click", async () => {
+      // ----- TAG FILTER
+      chips.forEach((ch) =>
+        ch.addEventListener("click", async () => {
           chips.forEach((c) => c.classList.remove("active"));
-          chip.classList.add("active");
-          currentTag = chip.dataset.tag;
+          ch.classList.add("active");
+          currentTag = ch.dataset.tag;
           await loadThreads();
         })
       );
 
-      // ========= AUTH STATE =========
-      supabase.auth.onAuthStateChange(async (evt, session) => {
-        currentUser = session?.user || null;
-        setAuthedUI(!!currentUser);
-        if (currentUser) await ensureProfile();
-        await loadThreads();
-        signingOut = false;
-        disableBtn(signOutBtn, false);
-      });
-
-      // ========= INIT =========
+      // ----- INIT
       (async function init() {
         const {
           data: { session },
         } = await supabase.auth.getSession();
         currentUser = session?.user || null;
-        setAuthedUI(!!currentUser);
+        setAuthUI(!!currentUser);
+        if (currentUser) await ensureProfile();
         await loadThreads();
       })();
     </script>

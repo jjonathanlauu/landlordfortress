@@ -2,233 +2,113 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Thread — A.I. Unlimited Publishing House LLC</title>
-
-    <!-- Keep HTML fresh (use real cache headers in prod too) -->
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Thread — Landlord Fortress</title>
     <link rel="stylesheet" href="https://use.typekit.net/kbs3miz.css" />
     <style>
       :root {
         --bg: #f7f9fc;
         --surface: #fff;
+        --rule: #e8eef4;
         --text: #1f2937;
         --muted: #6b7280;
-        --rule: #e8eef4;
         --accent: #22c1a1;
-        --radius: 14px;
-        --container: 900px;
+        --radius: 12px;
       }
-      * {
-        box-sizing: border-box;
-      }
-      html,
       body {
         margin: 0;
-        padding: 0;
-      }
-      body {
         background: var(--bg);
         color: var(--text);
-        font-family:
-          "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: "proxima-nova", system-ui, Arial;
       }
       .container {
-        width: min(100%, var(--container));
+        max-width: 900px;
         margin: 0 auto;
-        padding: 0 24px;
-      }
-      header {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(8px);
-      }
-      .nav {
-        display: flex;
-        align-items: center;
-        gap: 28px;
-        padding: 14px 0;
-      }
-      .brand {
-        margin-right: auto;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-size: 0.95rem;
-      }
-      .menu {
-        display: flex;
-        gap: 24px;
-      }
-      .menu a {
-        text-decoration: none;
-        color: #4b5563;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        font-weight: 300;
-        font-size: 0.8rem;
-      }
-      .menu a:hover,
-      .menu a.active {
-        color: var(--accent);
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 14px;
-        border-radius: 999px;
-        border: 1px solid #d5dde7;
-        background: #fff;
-        font-weight: 700;
-        cursor: pointer;
-      }
-      .btn.primary {
-        background: var(--accent);
-        color: #081214;
-        border-color: transparent;
-      }
-      .btn.ghost {
-        background: transparent;
-      }
-
-      .thread-head {
-        padding: 22px 0 12px;
-      }
-      .title {
-        margin: 0 0 6px;
-        font-size: clamp(1.4rem, 2vw + 1rem, 2.1rem);
-        font-weight: 800;
+        padding: 20px;
       }
       .meta {
         color: var(--muted);
-        font-size: 0.95rem;
       }
       .box {
         background: var(--surface);
         border: 1px solid var(--rule);
-        border-radius: 12px;
-        padding: 16px;
+        border-radius: var(--radius);
+        padding: 14px;
       }
-
+      .btn {
+        appearance: none;
+        border: 1px solid #d5dde7;
+        background: #fff;
+        padding: 10px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .btn.primary {
+        background: var(--accent);
+        border-color: transparent;
+        color: #062a26;
+      }
+      textarea,
+      input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d5dde7;
+        border-radius: 10px;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .error {
+        color: #b91c1c;
+      }
       .comment {
         display: grid;
-        grid-template-columns: 24px 1fr;
+        grid-template-columns: 8px 1fr;
         gap: 10px;
-        margin-top: 12px;
       }
       .bar {
         border-left: 2px solid #e2e8f0;
         border-radius: 2px;
       }
-      .c-body {
-        background: #fff;
-        border: 1px solid var(--rule);
-        border-radius: 10px;
-        padding: 12px;
-      }
-      .c-meta {
-        color: var(--muted);
-        font-size: 0.85rem;
-        margin-bottom: 6px;
-      }
-      .c-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 6px;
-      }
-      .link {
-        color: #0f766e;
-        text-decoration: none;
-      }
-      .link:hover {
-        text-decoration: underline;
-      }
-      .editor {
-        display: grid;
-        gap: 8px;
-        margin-top: 16px;
-      }
-      textarea {
-        width: 100%;
-        min-height: 120px;
-        padding: 12px 14px;
-        border: 1px solid #d5dde7;
-        border-radius: 10px;
-      }
-
       .tt {
         font-size: 0.72rem;
         padding: 4px 8px;
         border: 1px solid var(--rule);
         border-radius: 999px;
         color: #64748b;
+        margin-left: 6px;
       }
     </style>
   </head>
   <body>
-    <header>
-      <div class="container nav">
-        <div class="brand">A.I. Unlimited Publishing House LLC</div>
-        <nav class="menu">
-          <a href="index.html">Home</a>
-          <a href="community.html" class="active">Community</a>
-          <a href="books.html">Books</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-        </nav>
-      </div>
-    </header>
+    <div class="container">
+      <p><a class="meta" href="community.html">← Back to community</a></p>
+      <h1 id="title">Loading…</h1>
+      <p id="meta" class="meta"></p>
+      <div id="body" class="box"></div>
 
-    <section class="container thread-head">
-      <h1 id="threadTitle" class="title">Loading…</h1>
-      <div id="threadMeta" class="meta"></div>
-    </section>
+      <h3 style="margin-top: 18px">Replies</h3>
+      <div id="comments" class="box" style="display: grid; gap: 12px"></div>
 
-    <main class="container">
-      <article id="threadBody" class="box"></article>
-
-      <div class="editor">
+      <h3 style="margin-top: 18px">Add a reply</h3>
+      <div class="box" style="display: grid; gap: 8px">
         <textarea
-          id="replyBody"
-          placeholder="Add a comment (sign-in required for real forum)"
+          id="reply"
+          rows="5"
+          placeholder="Be constructive and cite sources."
         ></textarea>
-        <div>
-          <button class="btn primary" id="replyBtn">Reply</button>
-          <button class="btn ghost" id="backBtn">Back to chats</button>
+        <div class="row">
+          <button class="btn primary" id="send">Reply</button>
+          <span id="err" class="error"></span>
         </div>
-        <p id="replyError" class="meta" style="color: #b91c1c"></p>
       </div>
-
-      <section id="comments" style="margin-top: 10px"></section>
-    </main>
-
-    <footer
-      class="container"
-      style="
-        border-top: 1px solid var(--rule);
-        color: var(--muted);
-        text-align: center;
-        padding: 24px 0 46px;
-        margin-top: 24px;
-      "
-    >
-      © <span id="year"></span> A.I. Unlimited Publishing House LLC — All
-      rights reserved.
-    </footer>
+    </div>
 
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-
       const SUPABASE_URL = "https://wmfqzxlzaipqdhohvulp.supabase.co";
       const SUPABASE_ANON_KEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndtZnF6eGx6YWlwcWRob2h2dWxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxNzg1NDIsImV4cCI6MjA3MTc1NDU0Mn0.l_1y79L33k5Lm5oNKG8aT6emNTF79udKXUTQLqwf7Fo";
@@ -236,18 +116,6 @@
         SUPABASE_URL,
         SUPABASE_ANON_KEY
       );
-
-      const threadTitle = document.getElementById("threadTitle");
-      const threadMeta = document.getElementById("threadMeta");
-      const threadBody = document.getElementById("threadBody");
-      const commentsEl = document.getElementById("comments");
-      const replyBody = document.getElementById("replyBody");
-      const replyBtn = document.getElementById("replyBtn");
-      const backBtn = document.getElementById("backBtn");
-      const replyError = document.getElementById("replyError");
-
-      const params = new URLSearchParams(location.search);
-      const threadId = params.get("id");
 
       const esc = (s) =>
         (s ?? "").replace(
@@ -261,35 +129,51 @@
               "'": "&#39;",
             })[c]
         );
-      const timeAgo = (iso) => {
+      const ago = (iso) => {
         const s = Math.floor((Date.now() - new Date(iso)) / 1000);
-        const t = [
+        for (const [l, n] of [
           ["year", 31536000],
           ["month", 2592000],
           ["day", 86400],
           ["hour", 3600],
           ["minute", 60],
-        ];
-        for (const [l, v] of t) {
-          const n = Math.floor(s / v);
-          if (n >= 1) return `${n} ${l}${n > 1 ? "s" : ""} ago`;
+        ]) {
+          const v = Math.floor(s / n);
+          if (v >= 1) return `${v} ${l}${v > 1 ? "s" : ""} ago`;
         }
         return "just now";
       };
 
-      // Back to community
-      backBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        location.href = "community.html";
-      });
+      const params = new URLSearchParams(location.search);
+      const threadId = params.get("id");
 
-      // Load thread (with author username)
-      async function loadThread() {
-        if (!threadId) {
-          threadTitle.textContent = "Thread not found";
-          return;
+      const titleEl = document.getElementById("title");
+      const metaEl = document.getElementById("meta");
+      const bodyEl = document.getElementById("body");
+      const commentsEl = document.getElementById("comments");
+      const replyEl = document.getElementById("reply");
+      const sendBtn = document.getElementById("send");
+      const errEl = document.getElementById("err");
+
+      async function ensureProfile() {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user) return null;
+        const { data: p } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("id", user.id)
+          .maybeSingle();
+        if (!p) {
+          await supabase
+            .from("profiles")
+            .insert({ id: user.id, username: `user_${user.id.slice(0, 8)}` });
         }
+        return user;
+      }
 
+      async function loadThread() {
         const { data, error } = await supabase
           .from("threads_with_score")
           .select("*")
@@ -297,11 +181,12 @@
           .maybeSingle();
 
         if (error || !data) {
-          threadTitle.textContent = error?.message || "Thread not found";
+          titleEl.textContent = error?.message || "Not found";
           return;
         }
 
-        let authorName = data.author_id.slice(0, 8);
+        // Fetch author username
+        let authorName = `user_${data.author_id.slice(0, 8)}`;
         const { data: prof } = await supabase
           .from("profiles")
           .select("username")
@@ -309,36 +194,36 @@
           .maybeSingle();
         if (prof?.username) authorName = prof.username;
 
-        threadTitle.textContent = data.title;
+        titleEl.textContent = data.title;
+        bodyEl.textContent = data.body || "";
+
         const tagBits = (data.tags || [])
           .map((t) => `<span class="tt">${esc(t)}</span>`)
           .join("");
-        threadMeta.innerHTML = `Posted by <strong>${esc(authorName)}</strong> · ${data.comment_count} comments · ${timeAgo(data.created_at)}${tagBits ? " · " + tagBits : ""}`;
-        threadBody.textContent = data.body || "";
+
+        metaEl.innerHTML = `Posted by <strong>${esc(authorName)}</strong> · ${data.comment_count} comments · ${ago(data.created_at)}${tagBits ? " " + tagBits : ""}`;
       }
 
-      // Load comments (with usernames)
       async function loadComments() {
         commentsEl.innerHTML = "";
 
-        const { data: comments, error } = await supabase
+        const { data: rows, error } = await supabase
           .from("comments")
           .select("*")
           .eq("thread_id", threadId)
           .order("created_at", { ascending: true });
 
         if (error) {
-          commentsEl.innerHTML = `<p class="meta" style="color:#b91c1c">${esc(error.message)}</p>`;
+          commentsEl.innerHTML = `<span class="error">${esc(error.message)}</span>`;
           return;
         }
-        if (!comments || comments.length === 0) {
-          commentsEl.innerHTML = `<p class="meta">No replies yet. Be the first!</p>`;
+        if (!rows || rows.length === 0) {
+          commentsEl.textContent = "No replies yet.";
           return;
         }
 
-        const ids = [
-          ...new Set(comments.map((c) => c.author_id).filter(Boolean)),
-        ];
+        // Build a map author_id -> username
+        const ids = [...new Set(rows.map((c) => c.author_id).filter(Boolean))];
         let nameById = new Map();
         if (ids.length) {
           const { data: profs } = await supabase
@@ -348,77 +233,54 @@
           nameById = new Map((profs || []).map((p) => [p.id, p.username]));
         }
 
-        for (const c of comments) {
+        for (const c of rows) {
           const displayName =
-            nameById.get(c.author_id) || c.author_id.slice(0, 8);
-          const item = document.createElement("div");
-          item.className = "comment";
-          item.innerHTML = `
+            nameById.get(c.author_id) || `user_${c.author_id.slice(0, 8)}`;
+          const row = document.createElement("div");
+          row.className = "comment";
+          row.innerHTML = `
             <div class="bar"></div>
-            <div class="c-body">
-              <div class="c-meta"><strong>${esc(displayName)}</strong> · ${new Date(c.created_at).toLocaleString()}</div>
+            <div>
+              <div class="meta"><strong>${esc(displayName)}</strong> · ${new Date(c.created_at).toLocaleString()}</div>
               <div style="white-space:pre-wrap">${esc(c.body)}</div>
             </div>`;
-          commentsEl.appendChild(item);
+          commentsEl.appendChild(row);
         }
       }
 
-      // Post reply
-      replyBtn.addEventListener("click", postReply);
-      replyBody.addEventListener("keydown", (e) => {
-        if (e.metaKey && e.key === "Enter") postReply();
-      });
+      sendBtn.addEventListener("click", postReply);
 
       async function postReply() {
-        replyError.textContent = "";
-        const body = replyBody.value.trim();
-        if (!body) {
-          replyError.textContent = "Reply cannot be empty.";
+        errEl.textContent = "";
+        const text = replyEl.value.trim();
+        if (!text) {
+          errEl.textContent = "Reply cannot be empty.";
           return;
         }
 
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
+        const user = await ensureProfile();
         if (!user) {
-          replyError.textContent =
-            "Please sign in from the Community page to reply.";
+          errEl.textContent = "Sign in on the Community page to reply.";
           return;
-        }
-
-        // Ensure profile (FK)
-        const { data: existing } = await supabase
-          .from("profiles")
-          .select("id")
-          .eq("id", user.id)
-          .maybeSingle();
-        if (!existing) {
-          await supabase
-            .from("profiles")
-            .insert({ id: user.id, username: `user_${user.id.slice(0, 8)}` });
         }
 
         const { error } = await supabase
           .from("comments")
-          .insert({ thread_id: threadId, body, author_id: user.id });
+          .insert({ thread_id: threadId, body: text, author_id: user.id });
+
         if (error) {
-          replyError.textContent = error.message;
+          errEl.textContent = error.message;
           return;
         }
 
-        replyBody.value = "";
-        await loadThread(); // update comment count
-        await loadComments(); // show new comment
+        replyEl.value = "";
+        await loadThread(); // updates comment count
+        await loadComments(); // renders with usernames
       }
 
-      // Init
       (async function init() {
         await loadThread();
         await loadComments();
-        if (location.hash === "#reply") {
-          replyBody.focus();
-          replyBody.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
       })();
     </script>
   </body>
